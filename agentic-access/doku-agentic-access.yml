@@ -1,0 +1,273 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/doku-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. Payments move real money in IDR, so money-movement operations default
+  to human-in-the-loop required. See research/curity/agentic-governance/.
+summary:
+  operations: 19
+  by_action_class:
+    acting: 11
+    connected: 8
+  by_consequence:
+    write: 11
+    read: 8
+  human_in_the_loop_required: 5
+operations:
+- path: /checkout/v1/payment
+  method: post
+  operationId: createCheckoutPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - high-value
+    audit: required
+- path: /authorization/v1/access-token/b2b
+  method: post
+  operationId: getAccessTokenB2B
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: required
+    token:
+      max-ttl: 900
+    audit: required
+- path: /authorization/v1/access-token/b2b2c
+  method: post
+  operationId: getAccessTokenB2B2C
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: required
+    token:
+      max-ttl: 900
+    audit: required
+- path: /virtual-accounts/bi-snap-va/v1.1/transfer-va/create-va
+  method: post
+  operationId: createVirtualAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /virtual-accounts/bi-snap-va/v1.1/transfer-va/update-va
+  method: put
+  operationId: updateVirtualAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /virtual-accounts/bi-snap-va/v1.1/transfer-va/delete-va
+  method: delete
+  operationId: deleteVirtualAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /virtual-accounts/bi-snap-va/v1.1/transfer-va/inquiry
+  method: post
+  operationId: inquiryVirtualAccountStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /direct-debit/core/v1/registration-account-binding
+  method: post
+  operationId: bindEwalletAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - account-linking
+      - consent
+    audit: required
+- path: /direct-debit/core/v1/balance-inquiry
+  method: post
+  operationId: ewalletBalanceInquiry
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: required
+    token:
+      max-ttl: 900
+    audit: required
+- path: /direct-debit/core/v1/debit/payment-host-to-host
+  method: post
+  operationId: debitPaymentHostToHost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - high-value
+    audit: required
+- path: /direct-debit/core/v1/debit/refund
+  method: post
+  operationId: debitRefund
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - reversal
+    audit: required
+- path: /direct-debit/core/v1/registration-account-unbinding
+  method: post
+  operationId: unbindEwalletAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+    audit: required
+- path: /snap-adapter/b2b/v1.0/qr/qr-mpm-generate
+  method: post
+  operationId: generateQrisMpm
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /snap-adapter/b2b/v1.0/qr/qr-mpm-query
+  method: post
+  operationId: queryQrisMpm
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /snap-adapter/b2b/v1.0/qr/qr-mpm-refund
+  method: post
+  operationId: refundQrisMpm
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - reversal
+    audit: required
+- path: /payout/kirim-doku/balance-inquiry
+  method: post
+  operationId: payoutBalanceInquiry
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: required
+    token:
+      max-ttl: 900
+    audit: required
+- path: /payout/kirim-doku/account-inquiry
+  method: post
+  operationId: payoutAccountInquiry
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: required
+    token:
+      max-ttl: 900
+    audit: required
+- path: /payout/kirim-doku/transfer-bank
+  method: post
+  operationId: payoutTransferBank
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - disbursement
+      - high-value
+    audit: required
+- path: /payout/kirim-doku/check-status
+  method: post
+  operationId: payoutCheckStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

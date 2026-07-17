@@ -1,0 +1,45 @@
+generated: '2026-07-17'
+method: searched
+probe: true
+source: https://docs.doku.com/security/licenses
+url: https://docs.doku.com/security/licenses
+certifications:
+- PCI DSS Level 1 Service Provider
+- ISO/IEC 27001
+- AES-256 encryption standard
+licenses:
+- authority: Bank Indonesia
+  type: Payment Service Provider (PJP) Category 1
+  scope:
+  - Payment Gateway
+  - Disbursement / Remittance
+  - E-Money
+  - E-Wallet
+  - QRIS
+- authority: Bank Negara Malaysia (via senangPay)
+  type: Registered Merchant Acquirer
+  scope:
+  - Merchant Acquiring (Malaysia)
+registrations:
+- Ministry of Finance (Other Perception Agency / PNBP collecting agent)
+- Komdigi (Ministry of Communication and Digital)
+- Dukcapil (population/identity verification)
+evidence:
+- source: https://docs.doku.com/security/licenses
+  keywords:
+  - pci-dss level 1
+  - iso 27001
+  - bank indonesia
+  - pjp category 1
+  - aes-256
+- source: https://www.doku.com/blog/lisensi-lengkap-doku-fondasi-kepercayaan-sebagai-fintech-pembayaran-pionir-payment-gateway-tanah-air
+  keywords:
+  - lisensi
+  - pci dss
+  - bank indonesia
+notes: >-
+  DOKU (PT Nusa Satu Inti Artha) is a PCI DSS Level 1 Service Provider and holds
+  a Bank Indonesia PJP Category 1 license covering payment gateway, remittance,
+  e-money, e-wallet, and QRIS. It also owns senangPay (Malaysia). No dedicated
+  public trust-center portal with downloadable audit reports was found; license
+  and certification claims are published on docs.doku.com/security/licenses.

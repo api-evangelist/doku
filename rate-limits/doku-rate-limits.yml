@@ -1,0 +1,61 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: DOKU
+providerId: doku
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Indonesia
+- Rate Limiting
+- Quotas
+- SNAP
+description: >-
+  DOKU does not publish explicit numeric per-endpoint rate limits in its public
+  developer documentation. Practical throughput controls come from the Bank
+  Indonesia SNAP framework: the B2B access token is valid for 15 minutes and
+  must be reused (not re-minted per call), each transaction carries a unique
+  X-EXTERNAL-ID enforcing idempotency/duplicate rejection, and merchant
+  accounts are subject to fraud/velocity and settlement controls set in the
+  DOKU Back Office. Specific RPS/RPM ceilings are governed by the merchant
+  agreement and are not documented publicly.
+notes: >-
+  No public numeric limits were found on developers.doku.com as of the review
+  date; confirm any contractual throughput ceilings with DOKU. Duplicate
+  requests reusing an X-EXTERNAL-ID within the same day are rejected per SNAP
+  rules.
+sources:
+- https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+- https://developers.doku.com/
+responseCodes:
+  throttled: 429
+  duplicate: '409 / SNAP responseCode 4xx (Conflict / Inconsistent request)'
+limits:
+- name: SNAP Access Token TTL
+  scope: account
+  metric: token_lifetime
+  limit: 900 seconds
+  notes: B2B Bearer token valid 15 minutes; reuse until expiry rather than minting per request.
+- name: Idempotency (X-EXTERNAL-ID)
+  scope: request
+  metric: unique_identifier
+  limit: unique per transaction per day
+  notes: SNAP rejects duplicate X-EXTERNAL-ID values; used for de-duplication, not a rate ceiling.
+- name: Per-endpoint request rate
+  scope: account
+  metric: requests
+  limit: see merchant agreement
+  notes: No public numeric RPS/RPM published; governed contractually and by fraud/velocity controls.
+policies:
+- name: Token Reuse
+  description: Cache and reuse the SNAP B2B access token for its 15-minute lifetime instead of requesting a new token per call.
+- name: Backoff Strategy
+  description: On HTTP 429 or 5xx, retry with exponential backoff and jitter; never replay a successful payment with a new X-EXTERNAL-ID.
+- name: Idempotency
+  description: Generate a unique X-EXTERNAL-ID / partnerReferenceNo per logical transaction to guarantee exactly-once processing.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

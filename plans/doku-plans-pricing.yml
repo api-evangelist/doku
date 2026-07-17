@@ -1,0 +1,134 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: DOKU
+providerId: doku
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Fintech
+- Indonesia
+- Plans
+description: >-
+  DOKU has no developer subscription tiers; access is gated by merchant
+  onboarding (business registration + KYC) with the DOKU Back Office. Pricing is
+  transaction-based (Merchant Discount Rate) per payment channel and settles in
+  Indonesian Rupiah (IDR). Representative published rates are below; final rates
+  are set per merchant agreement and vary by volume and business category.
+notes: >-
+  Rates are as advertised on DOKU's Indonesian pricing/product pages and public
+  method-fee listings (July 2026); confirm current merchant rates in the DOKU
+  Back Office or a signed agreement. Sandbox access is free.
+sources:
+- https://www.doku.com/en-us/products/payment-gateway
+- https://developers.doku.com/
+- https://bilixe.com/listing/doku/
+plans:
+- id: doku-sandbox
+  name: Sandbox
+  type: free
+  description: >-
+    Free developer sandbox at api-sandbox.doku.com / sandbox.doku.com for
+    integration testing before go-live. No transaction fees.
+  entries:
+  - label: Sandbox Access
+    name: sandbox
+    type: flat
+    metric: access
+    limit: -1
+    timeFrame: month
+    geo: ID
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: All APIs (test mode)
+- id: doku-transaction
+  name: Transaction Pricing (per channel)
+  type: usage
+  description: >-
+    Per-transaction Merchant Discount Rate charged per successful payment,
+    varying by channel. Amounts in IDR.
+  entries:
+  - label: Credit / Debit Card
+    name: card
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: ID
+    unit: 1
+    price: 2.80% + Rp2,000 per transaction
+    userMultiplied: false
+  - label: Virtual Account (bank transfer)
+    name: virtual_account
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: ID
+    unit: 1
+    price: Rp4,000 per transaction
+    userMultiplied: false
+  - label: QRIS
+    name: qris
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: ID
+    unit: 1
+    price: 0.7% per transaction (regulated MDR)
+    userMultiplied: false
+  - label: e-Wallet (OVO / DANA / ShopeePay)
+    name: ewallet
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: ID
+    unit: 1
+    price: percentage fee varies by wallet
+    userMultiplied: false
+  - label: Kirim (payout / disbursement)
+    name: payout
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: usage
+    geo: ID
+    unit: 1
+    price: flat fee per disbursement (see agreement)
+    userMultiplied: false
+  elements:
+  - name: DOKU Checkout
+  - name: Virtual Account
+  - name: Direct Debit & e-Wallet
+  - name: QRIS
+  - name: Kirim Payout
+- id: doku-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Negotiated per-channel rates, settlement terms, Wallet-as-a-Service, and
+    dedicated support for high-volume merchants. Contact DOKU sales.
+  entries:
+  - label: Custom Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: ID
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Volume Pricing
+  - name: Wallet as a Service
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

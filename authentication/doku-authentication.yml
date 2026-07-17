@@ -1,0 +1,68 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/doku-openapi.yml + developers.doku.com
+summary:
+  types:
+  - apiKey
+  - http
+  notes: >-
+    DOKU runs two distinct request-signing models. (1) Non-SNAP (Checkout and
+    legacy Direct API): request-level HMAC-SHA256 signature carried in a
+    Signature header alongside Client-Id, Request-Id, and Request-Timestamp.
+    (2) Bank Indonesia SNAP: an asymmetric SHA256withRSA signature to obtain a
+    15-minute Bearer access token, then a symmetric HMAC-SHA512 signature per
+    transaction. No credentials are ever placed in the URL; all traffic is
+    HTTPS/TLS to region hosts.
+schemes:
+- name: checkout_signature
+  type: apiKey
+  in: header
+  headerName: Signature
+  companionHeaders:
+  - Client-Id
+  - Request-Id
+  - Request-Timestamp
+  algorithm: HMAC-SHA256
+  format: 'Signature: HMACSHA256=<base64(hmacSha256(clientSecret, componentString))>'
+  componentString: >-
+    Client-Id:<v>\nRequest-Id:<v>\nRequest-Timestamp:<v>\nRequest-Target:<path>\nDigest:<sha256-of-body>
+  scope: DOKU Checkout API and legacy non-SNAP Direct API
+  sources:
+  - https://developers.doku.com/accept-payments/doku-checkout/integration-guide/backend-integration
+- name: snap_asymmetric_token
+  type: apiKey
+  in: header
+  headerName: X-SIGNATURE
+  companionHeaders:
+  - X-CLIENT-KEY
+  - X-TIMESTAMP
+  algorithm: SHA256withRSA (asymmetric)
+  stringToSign: '<clientId>|<X-TIMESTAMP>'
+  endpoint: POST /authorization/v1/access-token/b2b
+  scope: SNAP access-token issuance (B2B and B2B2C)
+  tokenTtlSeconds: 900
+  sources:
+  - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+- name: snap_bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  headerName: Authorization
+  scope: All SNAP transaction endpoints (Virtual Account, Direct Debit / e-Wallet, QRIS, Kirim payout)
+  sources:
+  - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+- name: snap_symmetric_signature
+  type: apiKey
+  in: header
+  headerName: X-SIGNATURE
+  companionHeaders:
+  - X-PARTNER-ID
+  - X-EXTERNAL-ID
+  - X-TIMESTAMP
+  - CHANNEL-ID
+  algorithm: HMAC-SHA512 (symmetric)
+  stringToSign: >-
+    <HTTPMethod>:<EndpointUrl>:<AccessToken>:Lowercase(HexEncode(SHA-256(minified-body))):<X-TIMESTAMP>
+  scope: SNAP transaction signing per request
+  sources:
+  - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account

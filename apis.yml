@@ -1,0 +1,176 @@
+aid: doku
+url: https://raw.githubusercontent.com/api-evangelist/doku/refs/heads/main/apis.yml
+name: DOKU
+kind: company
+description: DOKU (PT Nusa Satu Inti Artha) is Indonesia's pioneering payment
+  gateway, founded in 2007 and licensed by Bank Indonesia as a Category 1 Payment
+  Service Provider. Its developer platform exposes a hosted Checkout API plus a full
+  suite of Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for
+  Virtual Account, e-Wallet, Direct Debit, QRIS, and Kirim (payout/disbursement),
+  all settling in Indonesian Rupiah (IDR).
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Payment Gateway
+- Fintech
+- Indonesia
+- SEA
+- SNAP
+- Virtual Account
+- E-Wallet
+- QRIS
+- Direct Debit
+- Payouts
+created: '2026-07-17'
+modified: '2026-07-17'
+specificationVersion: '0.19'
+apis:
+- aid: doku:doku-checkout-api
+  name: DOKU Checkout API
+  tags:
+  - Checkout
+  - Hosted Payment Page
+  - Payments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.doku.com/accept-payments/doku-checkout
+  baseURL: https://api.doku.com
+  properties:
+  - url: https://developers.doku.com/accept-payments/doku-checkout
+    type: Documentation
+  - url: https://developers.doku.com/accept-payments/doku-checkout/integration-guide/backend-integration
+    type: APIReference
+  - url: openapi/doku-openapi.yml
+    type: OpenAPI
+  - url: collections/doku.postman_collection.json
+    type: PostmanCollection
+  description: DOKU's hosted checkout page. A single POST /checkout/v1/payment call
+    returns a redirect URL and token for a DOKU-hosted payment page that accepts
+    cards, virtual accounts, e-wallets, and QRIS. Uses non-SNAP Client-Id +
+    Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers.
+- aid: doku:doku-snap-access-token-api
+  name: DOKU SNAP Access Token API
+  tags:
+  - Authentication
+  - OAuth
+  - SNAP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+  baseURL: https://api.doku.com
+  properties:
+  - url: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+    type: Documentation
+  - url: openapi/doku-openapi.yml
+    type: OpenAPI
+  - url: collections/doku.postman_collection.json
+    type: PostmanCollection
+  description: Bank Indonesia SNAP B2B and B2B2C access-token endpoints. Merchants
+    sign an asymmetric SHA256withRSA request with X-CLIENT-KEY + X-TIMESTAMP to mint
+    a 15-minute Bearer token used across all SNAP transaction APIs.
+- aid: doku:doku-snap-virtual-account-api
+  name: DOKU SNAP Virtual Account API
+  tags:
+  - Virtual Account
+  - Bank Transfer
+  - SNAP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account
+  baseURL: https://api.doku.com
+  properties:
+  - url: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account
+    type: Documentation
+  - url: openapi/doku-openapi.yml
+    type: OpenAPI
+  - url: collections/doku.postman_collection.json
+    type: PostmanCollection
+  description: SNAP BI-SNAP Virtual Account create/update/delete/inquiry across
+    BCA, BRI, BNI, Mandiri, Permata, BTN, Danamon and other banks. HMAC-SHA512
+    signed transactions under /virtual-accounts/bi-snap-va/v1.1/transfer-va.
+- aid: doku:doku-snap-direct-debit-ewallet-api
+  name: DOKU SNAP Direct Debit & e-Wallet API
+  tags:
+  - E-Wallet
+  - Direct Debit
+  - OVO
+  - DANA
+  - ShopeePay
+  - SNAP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/e-wallet/ovo
+  baseURL: https://api.doku.com
+  properties:
+  - url: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/e-wallet/ovo
+    type: Documentation
+  - url: openapi/doku-openapi.yml
+    type: OpenAPI
+  - url: collections/doku.postman_collection.json
+    type: PostmanCollection
+  description: SNAP account-binding, host-to-host debit, refund, and unbinding for
+    Indonesian e-wallets (OVO, DANA, ShopeePay, DOKU Wallet) and bank direct debit,
+    under /direct-debit/core/v1.
+- aid: doku:doku-snap-qris-api
+  name: DOKU SNAP QRIS API
+  tags:
+  - QRIS
+  - QR Code
+  - SNAP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/qris
+  baseURL: https://api.doku.com
+  properties:
+  - url: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/qris
+    type: Documentation
+  - url: openapi/doku-openapi.yml
+    type: OpenAPI
+  - url: collections/doku.postman_collection.json
+    type: PostmanCollection
+  description: SNAP QRIS Merchant-Presented Mode (MPM) generate, query, decode,
+    refund, and expire, plus B2B2C QR payment, under /snap-adapter/b2b/v1.0/qr.
+    QRIS is Bank Indonesia's unified national QR payment standard.
+- aid: doku:doku-kirim-payout-api
+  name: DOKU Kirim Payout API
+  tags:
+  - Payout
+  - Disbursement
+  - Remittance
+  - SNAP
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developers.doku.com/payout/kirim-doku
+  baseURL: https://api.doku.com
+  properties:
+  - url: https://developers.doku.com/payout/kirim-doku
+    type: Documentation
+  - url: openapi/doku-openapi.yml
+    type: OpenAPI
+  - url: collections/doku.postman_collection.json
+    type: PostmanCollection
+  description: Kirim DOKU domestic disbursement - balance inquiry, bank-account
+    inquiry, bank transfer, and transaction status - for paying out to recipient
+    bank accounts. Authenticated with the SNAP B2B Bearer token.
+common:
+- type: AgenticAccess
+  url: agentic-access/doku-agentic-access.yml
+- type: TrustCenter
+  url: security/doku-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/doku-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/doku-domain-security.yml
+- type: Authentication
+  url: authentication/doku-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/PTNUSASATUINTIARTHA-DOKU
+- type: Website
+  url: https://www.doku.com/
+- type: Documentation
+  url: https://developers.doku.com/
+- type: Plans
+  url: plans/doku-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/doku-rate-limits.yml
+- type: FinOps
+  url: finops/doku-finops.yml
+- url: https://www.doku.com/en-us/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

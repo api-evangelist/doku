@@ -1,0 +1,79 @@
+aid: doku
+name: DOKU
+review:
+  question: Does DOKU expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-17'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. DOKU's asynchronous payment result
+    delivery is via HTTP webhook callbacks (merchant-hosted notification /
+    payment-notification URLs the merchant registers in the DOKU Back Office),
+    not a persistent streaming transport. There is no Server-Sent Events (SSE)
+    stream and no WebSocket surface to model.
+findings:
+  summary: |
+    DOKU does not publish a documented public WebSocket API. All documented
+    integration surfaces are request/response HTTPS REST — the non-SNAP
+    hosted Checkout API (POST /checkout/v1/payment) and the Bank Indonesia
+    SNAP endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and
+    Kirim payout under https://api.doku.com (production) and
+    https://api-sandbox.doku.com (sandbox). Asynchronous payment status is
+    delivered back to the merchant via HTTP webhook/notification callbacks,
+    not over ws:// or wss://. No realtime, bidirectional, or streaming
+    WebSocket endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.doku.com
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Merchant-registered HTTP notification/callback URLs receive asynchronous payment results. Server-to-server HTTP POST, not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in DOKU's developer docs (developers.doku.com) as of the review date.
+  endpointsConfirmedRest:
+    - POST https://api.doku.com/checkout/v1/payment
+    - POST https://api.doku.com/authorization/v1/access-token/b2b
+    - POST https://api.doku.com/authorization/v1/access-token/b2b2c
+    - POST https://api.doku.com/virtual-accounts/bi-snap-va/v1.1/transfer-va/create-va
+    - PUT  https://api.doku.com/virtual-accounts/bi-snap-va/v1.1/transfer-va/update-va
+    - DELETE https://api.doku.com/virtual-accounts/bi-snap-va/v1.1/transfer-va/delete-va
+    - POST https://api.doku.com/virtual-accounts/bi-snap-va/v1.1/transfer-va/inquiry
+    - POST https://api.doku.com/direct-debit/core/v1/registration-account-binding
+    - POST https://api.doku.com/direct-debit/core/v1/balance-inquiry
+    - POST https://api.doku.com/direct-debit/core/v1/debit/payment-host-to-host
+    - POST https://api.doku.com/direct-debit/core/v1/debit/refund
+    - POST https://api.doku.com/direct-debit/core/v1/registration-account-unbinding
+    - POST https://api.doku.com/snap-adapter/b2b/v1.0/qr/qr-mpm-generate
+    - POST https://api.doku.com/snap-adapter/b2b/v1.0/qr/qr-mpm-query
+    - POST https://api.doku.com/snap-adapter/b2b/v1.0/qr/qr-mpm-refund
+    - POST https://api.doku.com/payout/kirim-doku/balance-inquiry
+    - POST https://api.doku.com/payout/kirim-doku/account-inquiry
+    - POST https://api.doku.com/payout/kirim-doku/transfer-bank
+    - POST https://api.doku.com/payout/kirim-doku/check-status
+sources:
+  - url: https://developers.doku.com/
+    type: Documentation
+    note: Developer portal; all documented APIs are HTTPS REST. No WebSocket mentioned.
+  - url: https://developers.doku.com/accept-payments/doku-checkout/integration-guide/backend-integration
+    type: APIReference
+    note: Checkout is POST /checkout/v1/payment returning a hosted page URL; request/response REST.
+  - url: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+    type: Documentation
+    note: SNAP access token via POST /authorization/v1/access-token/b2b; REST.
+  - url: https://developers.doku.com/payout/kirim-doku
+    type: Documentation
+    note: Kirim payout endpoints are REST, secured with the SNAP Bearer token.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: false
+  reason: |
+    No WebSocket protocol surface exists and no SSE stream is documented.
+    Asynchronous notification is webhook-based (HTTP callback), which is out
+    of scope for AsyncAPI WebSocket modeling. No AsyncAPI document was created
+    and no AsyncAPI pointer was added to apis.yml.

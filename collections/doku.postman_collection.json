@@ -1,0 +1,250 @@
+{
+  "info": {
+    "name": "DOKU Payment API",
+    "description": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Covers the non-SNAP hosted Checkout API and Bank Indonesia SNAP endpoints (access token, Virtual Account, Direct Debit / e-Wallet, QRIS, Kirim payout). Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures. Modeled from developers.doku.com (July 2026). All amounts in IDR.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api-sandbox.doku.com", "type": "string" },
+    { "key": "clientId", "value": "BRN-0000-0000000000000", "type": "string" },
+    { "key": "requestId", "value": "{{$guid}}", "type": "string" },
+    { "key": "requestTimestamp", "value": "2026-07-17T00:00:00Z", "type": "string" },
+    { "key": "signature", "value": "HMACSHA256=REPLACE_WITH_COMPUTED_SIGNATURE", "type": "string" },
+    { "key": "partnerId", "value": "REPLACE_WITH_PARTNER_ID", "type": "string" },
+    { "key": "externalId", "value": "{{$guid}}", "type": "string" },
+    { "key": "timestamp", "value": "2026-07-17T00:00:00+07:00", "type": "string" },
+    { "key": "clientKey", "value": "REPLACE_WITH_CLIENT_KEY", "type": "string" },
+    { "key": "snapSignature", "value": "REPLACE_WITH_SNAP_SIGNATURE", "type": "string" },
+    { "key": "accessToken", "value": "REPLACE_WITH_ACCESS_TOKEN", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Checkout",
+      "item": [
+        {
+          "name": "Create Checkout Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Client-Id", "value": "{{clientId}}" },
+              { "key": "Request-Id", "value": "{{requestId}}" },
+              { "key": "Request-Timestamp", "value": "{{requestTimestamp}}" },
+              { "key": "Signature", "value": "{{signature}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkout/v1/payment",
+              "host": ["{{baseUrl}}"],
+              "path": ["checkout", "v1", "payment"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order\": {\n    \"amount\": 50000,\n    \"invoice_number\": \"INV-20260717-001\",\n    \"currency\": \"IDR\"\n  },\n  \"payment\": {\n    \"payment_due_date\": 60\n  },\n  \"customer\": {\n    \"name\": \"Budi Santoso\",\n    \"email\": \"budi@example.co.id\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Generate a DOKU-hosted checkout page. Returns response.payment.url and response.payment.token_id. Non-SNAP HMAC-SHA256 header signature."
+          }
+        }
+      ]
+    },
+    {
+      "name": "SNAP Access Token",
+      "item": [
+        {
+          "name": "Get B2B Access Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-CLIENT-KEY", "value": "{{clientKey}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/authorization/v1/access-token/b2b",
+              "host": ["{{baseUrl}}"],
+              "path": ["authorization", "v1", "access-token", "b2b"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"grantType\": \"client_credentials\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Mint a 15-minute SNAP B2B Bearer token. X-SIGNATURE is SHA256withRSA over 'clientId|X-TIMESTAMP'."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Virtual Account",
+      "item": [
+        {
+          "name": "Create Virtual Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "X-PARTNER-ID", "value": "{{partnerId}}" },
+              { "key": "X-EXTERNAL-ID", "value": "{{externalId}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" },
+              { "key": "CHANNEL-ID", "value": "H2H" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/virtual-accounts/bi-snap-va/v1.1/transfer-va/create-va",
+              "host": ["{{baseUrl}}"],
+              "path": ["virtual-accounts", "bi-snap-va", "v1.1", "transfer-va", "create-va"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerServiceId\": \"   88899\",\n  \"customerNo\": \"00000000001\",\n  \"virtualAccountNo\": \"   8889900000000001\",\n  \"virtualAccountName\": \"Budi Santoso\",\n  \"trxId\": \"INV-20260717-001\",\n  \"totalAmount\": {\n    \"value\": \"50000.00\",\n    \"currency\": \"IDR\"\n  },\n  \"virtualAccountConfig\": {\n    \"reusableStatus\": false\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Create a SNAP BI-SNAP virtual account. HMAC-SHA512 transaction signature."
+          }
+        },
+        {
+          "name": "Inquiry Virtual Account Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "X-PARTNER-ID", "value": "{{partnerId}}" },
+              { "key": "X-EXTERNAL-ID", "value": "{{externalId}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" },
+              { "key": "CHANNEL-ID", "value": "H2H" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/virtual-accounts/bi-snap-va/v1.1/transfer-va/inquiry",
+              "host": ["{{baseUrl}}"],
+              "path": ["virtual-accounts", "bi-snap-va", "v1.1", "transfer-va", "inquiry"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerServiceId\": \"   88899\",\n  \"customerNo\": \"00000000001\",\n  \"virtualAccountNo\": \"   8889900000000001\",\n  \"inquiryRequestId\": \"{{externalId}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Direct Debit & e-Wallet",
+      "item": [
+        {
+          "name": "Account Binding (e-Wallet)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "X-PARTNER-ID", "value": "{{partnerId}}" },
+              { "key": "X-EXTERNAL-ID", "value": "{{externalId}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" },
+              { "key": "CHANNEL-ID", "value": "H2H" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/direct-debit/core/v1/registration-account-binding",
+              "host": ["{{baseUrl}}"],
+              "path": ["direct-debit", "core", "v1", "registration-account-binding"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phoneNo\": \"628123456789\",\n  \"redirectUrl\": \"https://merchant.example.co.id/callback\",\n  \"additionalInfo\": {\n    \"channel\": \"DIRECT_DEBIT_OVO_SNAP\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Debit Payment Host-to-Host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "X-PARTNER-ID", "value": "{{partnerId}}" },
+              { "key": "X-EXTERNAL-ID", "value": "{{externalId}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" },
+              { "key": "CHANNEL-ID", "value": "H2H" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/direct-debit/core/v1/debit/payment-host-to-host",
+              "host": ["{{baseUrl}}"],
+              "path": ["direct-debit", "core", "v1", "debit", "payment-host-to-host"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerReferenceNo\": \"INV-20260717-001\",\n  \"amount\": {\n    \"value\": \"50000.00\",\n    \"currency\": \"IDR\"\n  },\n  \"additionalInfo\": {\n    \"channel\": \"EMONEY_OVO_SNAP\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "QRIS",
+      "item": [
+        {
+          "name": "Generate QRIS (MPM)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "X-PARTNER-ID", "value": "{{partnerId}}" },
+              { "key": "X-EXTERNAL-ID", "value": "{{externalId}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" },
+              { "key": "CHANNEL-ID", "value": "H2H" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["snap-adapter", "b2b", "v1.0", "qr", "qr-mpm-generate"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerReferenceNo\": \"INV-20260717-001\",\n  \"amount\": {\n    \"value\": \"50000.00\",\n    \"currency\": \"IDR\"\n  },\n  \"merchantId\": \"REPLACE_WITH_MERCHANT_ID\",\n  \"validityPeriod\": \"2026-07-17T01:00:00+07:00\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Kirim Payout",
+      "item": [
+        {
+          "name": "Transfer to Bank (Disbursement)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "X-PARTNER-ID", "value": "{{partnerId}}" },
+              { "key": "X-EXTERNAL-ID", "value": "{{externalId}}" },
+              { "key": "X-TIMESTAMP", "value": "{{timestamp}}" },
+              { "key": "X-SIGNATURE", "value": "{{snapSignature}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/payout/kirim-doku/transfer-bank",
+              "host": ["{{baseUrl}}"],
+              "path": ["payout", "kirim-doku", "transfer-bank"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerReferenceNo\": \"PAYOUT-20260717-001\",\n  \"beneficiaryBankCode\": \"014\",\n  \"beneficiaryAccountNo\": \"1234567890\",\n  \"amount\": {\n    \"value\": \"100000.00\",\n    \"currency\": \"IDR\"\n  },\n  \"remark\": \"Vendor settlement\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Disburse funds to a recipient bank account via Kirim DOKU. Authenticated with the SNAP B2B Bearer token."
+          }
+        }
+      ]
+    }
+  ]
+}

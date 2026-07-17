@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: DOKU
+providerId: doku
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Indonesia
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of DOKU acceptance and disbursement costs. Unlike usage-metered
+  API vendors, DOKU's cost is the per-transaction Merchant Discount Rate (MDR)
+  deducted from settlement, plus flat per-transaction fees on some channels and
+  per-disbursement fees on Kirim payout. All charges are in Indonesian Rupiah
+  (IDR). Cost management is about channel mix (steering to lower-MDR channels
+  like Virtual Account/QRIS vs. cards), settlement timing, and reconciliation.
+notes: >-
+  Channel MDRs and flat fees vary by merchant agreement and business category;
+  verify against the DOKU Back Office statements. Currency is IDR.
+sources:
+- https://www.doku.com/en-us/products/payment-gateway
+- https://developers.doku.com/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: DOKU
+serviceCategory: Payment Processing
+billingModel:
+  pricingCategory: Transaction-Based
+  billingFrequency: Per-Transaction (netted at settlement)
+  billingCurrency: IDR
+  chargeCategories:
+  - Usage
+  - Tax
+  - Adjustment
+focusColumns:
+  ServiceName: DOKU Payment Gateway
+  ServiceCategory: Payment Processing
+  ProviderName: DOKU
+  PublisherName: DOKU
+  InvoiceIssuerName: PT Nusa Satu Inti Artha
+  BillingCurrency: IDR
+  ChargeCategory: Usage
+  PricingCategory: Transaction-Based
+meters:
+- name: card_transactions
+  description: Card acceptance MDR (percentage + flat fee) per successful card payment.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - channel
+- name: virtual_account_transactions
+  description: Flat per-transaction fee per Virtual Account settlement.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - bank
+- name: qris_transactions
+  description: QRIS regulated MDR (percentage) per successful QR payment.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+- name: ewallet_transactions
+  description: e-Wallet MDR (percentage, varies by wallet) per successful debit.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - wallet
+- name: payout_transactions
+  description: Flat fee per Kirim disbursement to a recipient bank account.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - beneficiaryBank
+principles:
+- name: Visibility
+  description: Reconcile DOKU Back Office settlement statements against internal orders; track MDR and flat fees per channel.
+- name: Allocation
+  description: Tag transactions by channel, merchant sub-account, and business unit; map settlement deductions to cost centers.
+- name: Optimization
+  description: Steer customers toward lower-MDR channels (Virtual Account, QRIS) where appropriate; batch payouts; monitor failed-transaction retries.
+- name: Accountability
+  description: Assign an owner for payment-cost review; monitor effective take rate and settlement timing monthly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
