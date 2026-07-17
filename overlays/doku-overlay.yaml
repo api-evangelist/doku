@@ -1,0 +1,36 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for DOKU Payment API
+  version: 1.0.0
+# Provenance: generated 2026-07-17 by the API Evangelist enrichment pipeline.
+# Captures OUR enrichment metadata over the harvested DOKU OpenAPI without
+# mutating openapi/doku-openapi.yml. The original spec is modeled-from-docs.
+extends: openapi/doku-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: doku
+      x-apievangelist-country: Indonesia
+      x-apievangelist-standards: [bi-snap, qris]
+      x-apievangelist-idempotency-header: X-EXTERNAL-ID
+      x-apievangelist-mcp: https://api.doku.com/doku-mcp-server/mcp
+      x-apievangelist-conventions: conventions/doku-conventions.yml
+      x-apievangelist-errors: errors/doku-problem-types.yml
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        packages: packages/doku-packages.yml
+        mcp: mcp/doku-mcp.yml
+        webhooks: asyncapi/doku-webhooks.yml
+        sandbox: sandbox/doku-sandbox.yml
+        conformance: conformance/doku-conformance.yml
+        lifecycle: lifecycle/doku-lifecycle.yml
+        data_model: data-model/doku-data-model.yml
+        skills: skills/_index.yml
+  - target: $.paths['/checkout/v1/payment'].post
+    update:
+      x-apievangelist-marquee: true
+      x-apievangelist-skill: skills/doku-hosted-checkout.md
+  - target: $.paths['/virtual-accounts/bi-snap-va/v1.1/transfer-va/create-va'].post
+    update:
+      x-apievangelist-skill: skills/doku-virtual-account.md

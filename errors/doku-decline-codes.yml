@@ -1,0 +1,75 @@
+generated: '2026-07-17'
+method: derived
+source: >-
+  developers.doku.com SNAP integration guides + Bank Indonesia SNAP responseCode
+  convention (7-digit = HTTPStatus[3] + ServiceCode[2] + CaseCode[2]).
+  Complements errors/doku-problem-types.yml.
+note: >-
+  DOKU is a Bank Indonesia SNAP acquirer/gateway, not a card scheme, so
+  transaction rejections surface as SNAP responseCode/responseMessage rather
+  than ISO 8583 card decline codes. Virtual Account uses service code 27 and its
+  case codes are fixed by the BI SNAP standard (listed below verbatim). For
+  e-Wallet/Direct Debit, QRIS, and payout the human-readable rejection reasons
+  are documented, but the exact per-product service-code digit is provider/
+  channel specific and is left as a pattern rather than asserted, to avoid
+  fabricating a precise numeric value. Consult the live SNAP reference for the
+  authoritative per-channel code table.
+envelope_field: responseCode
+masked_to_buyer: false
+decline_codes:
+  # Virtual Account (service code 27) — canonical BI SNAP codes
+  - code: '2002700'
+    product: virtual-account
+    meaning: Successful
+    action: Payment accepted / VA operation succeeded.
+  - code: '4012700'
+    product: virtual-account
+    meaning: Unauthorized (invalid signature or access token)
+    action: Re-mint the SNAP Bearer token and re-sign the request.
+  - code: '4042712'
+    product: virtual-account
+    meaning: Invalid bill / Virtual Account not found
+    action: Verify the VA number is active and unpaid.
+  - code: '4042714'
+    product: virtual-account
+    meaning: Bill / Virtual Account already paid
+    action: Do not re-collect; treat as settled.
+  - code: '4042719'
+    product: virtual-account
+    meaning: Invalid amount (does not match the registered bill)
+    action: Send the exact totalAmount registered on the VA.
+  - code: '4092700'
+    product: virtual-account
+    meaning: Conflict / duplicate (idempotency)
+    action: Reuse of X-EXTERNAL-ID with a different payload; use a unique X-EXTERNAL-ID.
+  # e-Wallet / Direct Debit — documented rejection reasons (exact code channel-specific)
+  - code_pattern: '403..54..'
+    product: e-wallet
+    meaning: Insufficient balance
+    action: Buyer must top up; offer an alternate method.
+  - code_pattern: '404..54..'
+    product: e-wallet
+    meaning: Account binding not found / customer not bound
+    action: Re-run registration-account-binding before host-to-host debit.
+  - code_pattern: '403..54..'
+    product: e-wallet
+    meaning: Transaction declined by issuer / user cancelled
+    action: Ask the buyer to reauthorize.
+  # QRIS — documented rejection reasons
+  - code_pattern: '404....'
+    product: qris
+    meaning: QR not found / invalid
+    action: Regenerate the QRIS via generateQrisMpm.
+  - code_pattern: '403....'
+    product: qris
+    meaning: QRIS payment expired
+    action: Regenerate the QR with a new validityPeriod.
+  # Payout / Kirim — documented rejection reasons
+  - code_pattern: '404....'
+    product: payout
+    meaning: Beneficiary account inquiry failed / account not found
+    action: Verify beneficiaryAccountNo and bank code via payoutAccountInquiry first.
+  - code_pattern: '403....'
+    product: payout
+    meaning: Insufficient DOKU balance for disbursement
+    action: Check payoutBalanceInquiry and top up before payoutTransferBank.

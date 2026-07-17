@@ -1,0 +1,41 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  https://docs.doku.com/get-started/manage-business/set-up-integration/webhook-payment-notification
+  + https://docs.doku.com/accept-payments/integration-tools/doku-checkout/configure-notifications
+type: Webhooks
+note: >-
+  DOKU delivers asynchronous payment results via merchant-registered HTTP
+  notification (callback) URLs configured per payment method in the DOKU
+  Dashboard. There is no persistent streaming transport (no WebSocket/SSE), so
+  no AsyncAPI document is published (see review.yml). This captures the webhook
+  catalog. Non-SNAP notifications are signed with HMAC-SHA256; the merchant
+  verifies the Signature header before trusting the callback.
+delivery:
+  transport: HTTP POST (server-to-server callback)
+  configuration: DOKU Dashboard -> Settings -> Payment Settings -> <method> -> notification URL
+  signature: HMAC-SHA256 Signature header (non-SNAP); merchant must verify + apply a replay guard
+  retry: DOKU retries failed notifications; merchant should respond 200 and dedupe on the transaction/invoice reference
+events:
+  - name: virtual-account.payment
+    trigger: Buyer completes a Virtual Account bank transfer
+    config: Settings -> Payment Settings -> Virtual Account -> Configure -> notification URL
+  - name: cards.payment
+    trigger: Card payment authorized/captured
+    config: Settings -> Payment Settings -> Cards -> Payment Configuration -> notification URL
+  - name: ewallet.payment
+    trigger: e-Wallet (OVO/DANA/ShopeePay/DOKU Wallet) payment completed
+    config: Settings -> Payment Settings -> e-Wallet -> Configure -> notification URL
+  - name: qris.payment
+    trigger: QRIS payment completed
+  - name: convenience-store.payment
+    trigger: Convenience store (e.g. Alfamart/Indomaret) payment completed
+  - name: paylater.payment
+    trigger: PayLater payment completed
+  - name: direct-debit.payment
+    trigger: Direct debit charge completed
+  - name: digital-banking.payment
+    trigger: Digital banking payment completed
+docs:
+  - https://docs.doku.com/get-started/manage-business/set-up-integration/webhook-payment-notification
+  - https://docs.doku.com/accept-payments/integration-tools/doku-checkout/configure-notifications

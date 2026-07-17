@@ -1,0 +1,48 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  docs.doku.com/security/licenses + openapi/doku-openapi.yml + developers.doku.com
+note: >-
+  DOKU conforms to Bank Indonesia's SNAP (Standar Nasional Open API Pembayaran)
+  national open-API payment standard and publishes named security/compliance
+  certifications. Standards below are asserted from published compliance claims
+  (certifications) and derived from the OpenAPI/auth model.
+standards:
+  - id: bi-snap
+    name: Bank Indonesia SNAP (Standar Nasional Open API Pembayaran)
+    conforms: true
+    evidence: SNAP interface paths, X-SIGNATURE (SHA256withRSA token + HMAC-SHA512 transaction), X-EXTERNAL-ID, responseCode envelope
+  - id: qris
+    name: QRIS (Quick Response Code Indonesian Standard)
+    conforms: true
+    evidence: SNAP QRIS MPM generate/query/refund endpoints
+  - id: pci-dss
+    name: PCI DSS Level 1 Service Provider
+    conforms: true
+    evidence: docs.doku.com/security/licenses
+  - id: iso-27001
+    name: ISO/IEC 27001
+    conforms: true
+    evidence: docs.doku.com/security/licenses
+  - id: oauth2-client-credentials
+    name: OAuth2-style client-credentials token
+    conforms: partial
+    evidence: >-
+      SNAP mints a short-lived Bearer access token via signed client
+      credentials, but the OpenAPI models it as apiKey/http bearer signing
+      rather than a declared oauth2 flow.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use SNAP responseCode/responseMessage, not application/problem+json.
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: No Sunset/Deprecation response headers documented.
+  - id: fapi
+    conforms: false
+compliance_program:
+  published: true
+  url: https://docs.doku.com/security/licenses
+  certifications:
+    - PCI DSS Level 1 Service Provider
+    - ISO/IEC 27001
+  regulator: Bank Indonesia (Payment Service Provider Category 1)

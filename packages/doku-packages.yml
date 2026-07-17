@@ -1,0 +1,79 @@
+generated: '2026-07-17'
+method: searched
+source: https://docs.doku.com/accept-payments/integration-tools/sdks-and-libraries + registry lookups (npm/PyPI/Packagist/pkg.go.dev) + github.com/PTNUSASATUINTIARTHA-DOKU
+packages:
+  - language: php
+    registry: packagist
+    name: doku/jokul-php-library
+    url: https://packagist.org/packages/doku/jokul-php-library
+    install: composer require doku/jokul-php-library
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-php-library
+    official: true
+    note: Official PHP SDK (PHP 8+). A companion package doku/doku-php-library is also published on Packagist.
+  - language: javascript
+    registry: npm
+    name: doku-nodejs-library
+    version: 1.0.52
+    url: https://www.npmjs.com/package/doku-nodejs-library
+    install: npm install doku-nodejs-library
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-nodejs-library
+    official: true
+    note: Official Node.js SDK (Node 18+).
+  - language: python
+    registry: pypi
+    name: doku-python-library
+    version: 1.1.72
+    url: https://pypi.org/project/doku-python-library/
+    install: pip install doku-python-library
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-python-library
+    official: true
+    note: Official Python SDK (Python 3.8+).
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+    url: https://pkg.go.dev/github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+    install: go get github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+    official: true
+    note: Official Go SDK (Go 1.22.2+).
+  - language: java
+    registry: maven
+    name: doku-java-library
+    url: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-java-library
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-java-library
+    official: true
+    note: Official Java SDK (Java 11+), distributed via Maven.
+  - language: javascript
+    registry: npm
+    name: doku-mcp-local
+    url: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-mcp-proxy
+    install: npx doku-mcp-local
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-mcp-proxy
+    official: true
+    note: >-
+      Official stdio MCP proxy that bridges a local MCP client (e.g. Claude Desktop)
+      to the hosted DOKU MCP Server. Binary name doku-mcp-local. See mcp/doku-mcp.yml.
+  - language: kotlin
+    registry: github
+    name: SDK-Android
+    url: https://github.com/PTNUSASATUINTIARTHA-DOKU/SDK-Android
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/SDK-Android
+    official: true
+    note: Official Android mobile checkout SDK.
+  - language: objective-c
+    registry: github
+    name: SDK-iOS
+    url: https://github.com/PTNUSASATUINTIARTHA-DOKU/SDK-iOS
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/SDK-iOS
+    official: true
+    note: Official iOS mobile checkout SDK.
+plugins:
+  - platform: WooCommerce
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-woocommerce-plugin
+    official: true
+  - platform: Magento
+    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-magento-plugin
+    official: true
+  - platform: Shopify
+    url: https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/shopify
+    official: true

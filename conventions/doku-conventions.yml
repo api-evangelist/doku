@@ -1,0 +1,56 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  openapi/doku-openapi.yml + developers.doku.com SNAP integration guides
+  (Bank Indonesia SNAP header/signature conventions) + docs.doku.com
+summary: >-
+  DOKU runs two request/response conventions. (1) Bank Indonesia SNAP (Standar
+  Nasional Open API Pembayaran) for Virtual Account, e-Wallet/Direct Debit,
+  QRIS, and Kirim payout: Bearer access token + per-request HMAC-SHA512
+  signature, an X-EXTERNAL-ID idempotency header, and a uniform
+  responseCode/responseMessage envelope. (2) The non-SNAP hosted Checkout API:
+  Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers.
+authentication:
+  style: request-signing + bearer-token
+  see: authentication/doku-authentication.yml
+idempotency:
+  supported: true
+  mechanism: header
+  header: X-EXTERNAL-ID
+  scope: SNAP transaction endpoints (Virtual Account, e-Wallet/Direct Debit, QRIS, Kirim payout)
+  semantics: >-
+    Per Bank Indonesia SNAP, X-EXTERNAL-ID is a unique, merchant-generated
+    reference sent on every SNAP transaction request. Reusing the same
+    X-EXTERNAL-ID for the same endpoint within the retention window returns the
+    original result instead of creating a duplicate transaction, making retries
+    safe. Non-SNAP Checkout uses Request-Id as its per-request unique reference.
+  companion_reference: partnerReferenceNo / partnerServiceId (business-level dedupe on transaction bodies)
+  retention: per Bank Indonesia SNAP window (same-day)
+tracing:
+  request_id_headers: [X-EXTERNAL-ID, Request-Id, X-TIMESTAMP]
+  channel_header: CHANNEL-ID
+pagination:
+  supported: false
+  note: SNAP transaction and inquiry endpoints are single-resource request/response; no list pagination surface is documented.
+versioning:
+  scheme: uri-path
+  examples:
+    - /virtual-accounts/bi-snap-va/v1.1/transfer-va
+    - /snap-adapter/b2b/v1.0/qr
+    - /checkout/v1/payment
+  see: lifecycle/doku-lifecycle.yml
+error_envelope:
+  format: snap-response-code
+  fields: [responseCode, responseMessage]
+  response_code_shape: >-
+    7-digit SNAP responseCode = HTTP status (3) + service code (2) + case code (2),
+    e.g. 2002700 success, 4012700 unauthorized, 4042712 invalid bill/VA not found.
+  see:
+    - errors/doku-problem-types.yml
+    - errors/doku-decline-codes.yml
+rate_limit_signaling:
+  see: rate-limits/doku-rate-limits.yml
+webhooks:
+  supported: true
+  style: merchant-registered HTTP notification/callback URLs configured per payment method in the DOKU Dashboard
+  see: asyncapi/doku-webhooks.yml

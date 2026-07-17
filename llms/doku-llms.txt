@@ -1,0 +1,169 @@
+# Provenance
+# generated: 2026-07-17
+# method: searched
+# source: https://docs.doku.com/llms.txt (saved verbatim)
+
+# DOKU Docs
+
+## English
+
+- [Introduction](https://docs.doku.com/introduction.md): Get Started with DOKU for your Payment Solutions
+- [Create Account](https://docs.doku.com/get-started/create-account.md): Sign up and gain access to DOKU Dashboard
+- [Activate Business](https://docs.doku.com/get-started/activate-business.md): Have your Business Account verified to unlock all DOKU Dashboard features
+- [🇮🇩 Business Account](https://docs.doku.com/get-started/activate-business/business-account.md): Have your Indonesian Business Account verified to unlock all DOKU Dashboard features
+- [🇲🇾 Business Account](https://docs.doku.com/get-started/activate-business/business-account-1.md): Have your Malaysian Business Account verified to unlock all DOKU Dashboard features
+- [Manage Business](https://docs.doku.com/get-started/manage-business.md): Use DOKU Dashboard to manage your Business Account
+- [Manage Team Members](https://docs.doku.com/get-started/manage-business/manage-team-members.md): Add, remove, or assign roles to team members
+- [Activate Services](https://docs.doku.com/get-started/manage-business/activate-services.md): Enable all services offered by DOKU
+- [Manage Payment Methods](https://docs.doku.com/get-started/manage-business/manage-payment-methods.md): Configure and customize available payment options for your customers
+- [Set Up Integration](https://docs.doku.com/get-started/manage-business/set-up-integration.md): Connect your system with DOKU using API keys and integration tools
+- [Webhook / Payment Notification](https://docs.doku.com/get-started/manage-business/set-up-integration/webhook-payment-notification.md)
+- [Simulate Transactions](https://docs.doku.com/get-started/manage-business/set-up-integration/simulate-transactions.md)
+- [Manage Finances](https://docs.doku.com/get-started/manage-business/manage-finances.md): Manage settlement bank accounts and fund disbursements
+- [Custom Settlement](https://docs.doku.com/get-started/manage-business/manage-finances/custom-settlement.md)
+- [Split Settlement](https://docs.doku.com/get-started/manage-business/manage-finances/custom-settlement/split-settlement.md)
+- [Hold and Release](https://docs.doku.com/get-started/manage-business/manage-finances/custom-settlement/hold-and-release.md)
+- [Custom Report](https://docs.doku.com/get-started/manage-business/manage-finances/custom-settlement/custom-report.md)
+- [Refund](https://docs.doku.com/get-started/manage-business/manage-finances/refund.md)
+- [Dispute](https://docs.doku.com/get-started/manage-business/manage-finances/dispute.md)
+- [Manage Reports](https://docs.doku.com/get-started/manage-business/manage-reports.md): View and download reports for transactions, settlements, and more
+- [Analytics](https://docs.doku.com/get-started/manage-business/manage-reports/analytics.md)
+- [Transaction Report](https://docs.doku.com/get-started/manage-business/manage-reports/transaction-report.md)
+- [Settlement Report](https://docs.doku.com/get-started/manage-business/manage-reports/settlement-report.md)
+- [Manage Operations](https://docs.doku.com/get-started/manage-business/manage-operations.md): Monitor daily business activities and ensure smooth operations
+- [Manage Customers](https://docs.doku.com/get-started/manage-business/manage-customers.md): View customer data and manage transaction-related interactions
+- [Set Up a Promo](https://docs.doku.com/get-started/manage-business/set-up-a-promo.md)
+- [Manage Multiple Brands](https://docs.doku.com/get-started/manage-business/manage-multiple-brands.md): Add and manage different brands under one Business Account
+- [Company Dashboard](https://docs.doku.com/get-started/manage-business/manage-multiple-brands/company-dashboard.md)
+- [Update Business Data](https://docs.doku.com/get-started/manage-business/update-business-data.md): Edit your company profile, documents, and contact information
+- [Manage User Account](https://docs.doku.com/get-started/manage-user-account.md): Update your personal account details and security settings
+- [Change Password](https://docs.doku.com/get-started/manage-user-account/change-password.md)
+- [Enable 2-Step Verification](https://docs.doku.com/get-started/manage-user-account/enable-2-step-verification.md)
+- [Supported Products by Region](https://docs.doku.com/get-started/supported-products-by-region.md)
+- [No-Integration Products](https://docs.doku.com/accept-payments/no-integration-products.md): Accept payments fast and easy without any technical integration
+- [Payment Link](https://docs.doku.com/accept-payments/no-integration-products/payment-link.md): Create a link instantly to collect payments from your customers
+- [Create Payment Link](https://docs.doku.com/accept-payments/no-integration-products/payment-link/create-payment-link.md): Generate payment links from a web dashboard, mobile app, or WhatsApp
+- [Manage Payment Link](https://docs.doku.com/accept-payments/no-integration-products/payment-link/manage-payment-link.md): Edit, deactivate, export, and manage notifications or invoices for your payment links
+- [Customize Checkout Page](https://docs.doku.com/accept-payments/no-integration-products/payment-link/customize-checkout-page.md): Customize the interface of your DOKU Checkout page
+- [Digital Catalog](https://docs.doku.com/accept-payments/no-integration-products/digital-catalog.md): Showcase your products with an online catalog
+- [Manage Catalog](https://docs.doku.com/accept-payments/no-integration-products/digital-catalog/manage-catalog.md)
+- [Manage Items](https://docs.doku.com/accept-payments/no-integration-products/digital-catalog/manage-items.md)
+- [Place an Order](https://docs.doku.com/accept-payments/no-integration-products/digital-catalog/place-an-order.md): Guide to place an order on Digital Catalog as a customer
+- [Manage Orders](https://docs.doku.com/accept-payments/no-integration-products/digital-catalog/manage-orders.md): Guide to manage Digital Catalog orders as merchants
+- [Customer Static VA](https://docs.doku.com/accept-payments/no-integration-products/customer-static-va.md): Create and manage reusable virtual accounts for your customers
+- [QRIS](https://docs.doku.com/accept-payments/no-integration-products/qris.md): Set up QRIS for multi-channel QR payments
+- [Virtual Terminal](https://docs.doku.com/accept-payments/no-integration-products/virtual-terminal.md)
+- [Integration Tools](https://docs.doku.com/accept-payments/integration-tools.md): Various ways to integrate with DOKU to accept payments
+- [DOKU Checkout](https://docs.doku.com/accept-payments/integration-tools/doku-checkout.md): With DOKU Checkout, there's no need to build your own payment page
+- [Customize Checkout Page](https://docs.doku.com/accept-payments/integration-tools/doku-checkout/customize-checkout-page.md): Customize the interface of your DOKU Checkout page
+- [Configure Notifications](https://docs.doku.com/accept-payments/integration-tools/doku-checkout/configure-notifications.md)
+- [Manage Checkout Orders](https://docs.doku.com/accept-payments/integration-tools/doku-checkout/manage-checkout-orders.md)
+- [Direct API](https://docs.doku.com/accept-payments/integration-tools/direct-api.md): Use your own custom payment page to collect payments
+- [e-Commerce and Plugins](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins.md): Integrate your platform into DOKU using ready-made plugins
+- [Shopify](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/shopify.md)
+- [🇮🇩 Shopify Integration](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/shopify/shopify-integration.md): Integration Guide for Shopify users in Indonesia
+- [🇲🇾 Shopify Integration](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/shopify/shopify-integration-1.md): Integration Guide for Shopify users in Malaysia
+- [WooCommerce (WordPress)](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/woocommerce-wordpress.md)
+- [🇮🇩 WooCommerce Integration](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/woocommerce-wordpress/woocommerce-integration.md): Integration Guide for WooCommerce users in Indonesia
+- [🇲🇾 WooCommerce Integration](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/woocommerce-wordpress/woocommerce-integration-1.md): Integration Guide for WooCommerce users in Malaysia
+- [Adobe Commerce (Magento)](https://docs.doku.com/accept-payments/integration-tools/e-commerce-and-plugins/adobe-commerce-magento.md)
+- [SDKs and Libraries](https://docs.doku.com/accept-payments/integration-tools/sdks-and-libraries.md): Libraries and tools to simplify integration with DOKU
+- [DOKU MCP Server](https://docs.doku.com/accept-payments/integration-tools/doku-mcp-server.md): DOKU Model Context Protocol capabilities and use cases
+- [Payment Methods](https://docs.doku.com/accept-payments/payment-methods.md): All payment methods/channels supported by DOKU both online and offline
+- [🇮🇩 Requirements and Limitations](https://docs.doku.com/accept-payments/payment-methods/requirements-and-limitations.md): Payment method activation requirements and transaction limits in Indonesia
+- [🇲🇾 Requirements and Limitations](https://docs.doku.com/accept-payments/payment-methods/requirements-and-limitations-1.md): Payment method activation requirements and transaction limits in Malaysia
+- [Finance & Settlement](https://docs.doku.com/accept-payments/finance-and-settlement.md)
+- [Settlement Time](https://docs.doku.com/accept-payments/finance-and-settlement/settlement-time.md)
+- [Pricing and Fees](https://docs.doku.com/accept-payments/finance-and-settlement/pricing-and-fees.md)
+- [Refund & Chargeback](https://docs.doku.com/accept-payments/finance-and-settlement/refund-and-chargeback.md)
+- [🇮🇩 Refund & Chargeback](https://docs.doku.com/accept-payments/finance-and-settlement/refund-and-chargeback/refund-and-chargeback.md)
+- [🇲🇾 Refund & Chargeback](https://docs.doku.com/accept-payments/finance-and-settlement/refund-and-chargeback/refund-and-chargeback-1.md)
+- [Promo Engine](https://docs.doku.com/accept-payments/promo-engine.md): Create and manage promotional campaigns to boost your sales
+- [FlexiBill](https://docs.doku.com/subscription-and-billing/flexibill.md)
+- [Activation](https://docs.doku.com/subscription-and-billing/flexibill/activation.md)
+- [Subscription and Billing](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing.md)
+- [Billing](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/billing.md)
+- [Create Bulk Subscription](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/billing/create-bulk-subscription.md)
+- [WhatsApp Portal for Subscription](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/billing/whatsapp-portal-for-subscription.md)
+- [How to Create Event](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/billing/whatsapp-portal-for-subscription/how-to-create-event.md)
+- [Dashboard and Monitoring](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/billing/whatsapp-portal-for-subscription/dashboard-and-monitoring.md)
+- [View Subscription Billing](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/billing/view-subscription-billing.md)
+- [Subscriptions](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/subscriptions.md)
+- [Collection and Plan](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/subscriptions/collection-and-plan.md)
+- [Create Subscription - Merchant Initiate](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/subscriptions/create-subscription-merchant-initiate.md)
+- [Create Subscription - Customer Initiate](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/subscriptions/create-subscription-customer-initiate.md)
+- [View Subscription Detail](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/subscriptions/view-subscription-detail.md)
+- [Cancel Subscription](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/subscriptions/cancel-subscription.md)
+- [Invoice and Receipt](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/invoice-and-receipt.md)
+- [Host to Host Integration](https://docs.doku.com/subscription-and-billing/flexibill/subscription-and-billing/host-to-host-integration.md)
+- [Member Center](https://docs.doku.com/subscription-and-billing/flexibill/member-center.md)
+- [Member Management](https://docs.doku.com/subscription-and-billing/flexibill/member-center/member-management.md)
+- [Form Management](https://docs.doku.com/subscription-and-billing/flexibill/member-center/form-management.md)
+- [Account Billing](https://docs.doku.com/subscription-and-billing/flexibill/account-billing.md)
+- [Account Billing Activation](https://docs.doku.com/subscription-and-billing/flexibill/account-billing/account-billing-activation.md)
+- [DOKU Hosted Scheduler](https://docs.doku.com/subscription-and-billing/flexibill/account-billing/doku-hosted-scheduler.md)
+- [Merchant Hosted Scheduler](https://docs.doku.com/subscription-and-billing/flexibill/account-billing/merchant-hosted-scheduler.md)
+- [Connectivity & File Security (SFTP)](https://docs.doku.com/subscription-and-billing/flexibill/account-billing/connectivity-and-file-security-sftp.md)
+- [Manage Recurring](https://docs.doku.com/subscription-and-billing/flexibill/account-billing/manage-recurring.md)
+- [Billing Portal](https://docs.doku.com/subscription-and-billing/flexibill/billing-portal.md)
+- [PayChat](https://docs.doku.com/subscription-and-billing/paychat.md)
+- [WhatsApp Business (WABA)](https://docs.doku.com/subscription-and-billing/paychat/whatsapp-business-waba.md): Use your WhatsApp Business account to enable seamless transactions through the PayChat service, specifically intended for corporate-type merchants.
+- [Activate WhatsApp Business](https://docs.doku.com/subscription-and-billing/paychat/whatsapp-business-waba/activate-whatsapp-business.md)
+- [Manage WhatsApp Business](https://docs.doku.com/subscription-and-billing/paychat/whatsapp-business-waba/manage-whatsapp-business.md)
+- [Accept Order](https://docs.doku.com/subscription-and-billing/paychat/accept-order.md): Collect orders in WhatsApp through a customizable bot, with no websites or app switching needed.
+- [Activate & Create Event](https://docs.doku.com/subscription-and-billing/paychat/accept-order/activate-and-create-event.md)
+- [Manage Event](https://docs.doku.com/subscription-and-billing/paychat/accept-order/manage-event.md)
+- [Reports & Transaction](https://docs.doku.com/subscription-and-billing/paychat/accept-order/reports-and-transaction.md): Detail of each transaction from an event.
+- [Bill Broadcast](https://docs.doku.com/subscription-and-billing/paychat/bill-broadcast.md): Send Personalized WhatsApp Messages to All Your Customers—Fast and Effortlessly
+- [Activate Bill Broadcast](https://docs.doku.com/subscription-and-billing/paychat/bill-broadcast/activate-bill-broadcast.md)
+- [Template & Broadcast](https://docs.doku.com/subscription-and-billing/paychat/bill-broadcast/template-and-broadcast.md)
+- [Reports & Transaction](https://docs.doku.com/subscription-and-billing/paychat/bill-broadcast/reports-and-transaction.md)
+- [Domestic Payouts](https://docs.doku.com/payouts/domestic-payouts.md)
+- [Bank Account Validation](https://docs.doku.com/payouts/domestic-payouts/bank-account-validation.md)
+- [List of Banks](https://docs.doku.com/payouts/domestic-payouts/list-of-banks.md)
+- [List of e-Wallets](https://docs.doku.com/payouts/domestic-payouts/list-of-e-wallets.md)
+- [List of Virtual Accounts](https://docs.doku.com/payouts/domestic-payouts/list-of-virtual-accounts.md)
+- [Refund Service](https://docs.doku.com/payouts/refund-service.md)
+- [Cash Out](https://docs.doku.com/payouts/cash-out.md)
+- [Embedded Wallet](https://docs.doku.com/wallet-as-a-service/embedded-wallet.md)
+- [Sub Account](https://docs.doku.com/wallet-as-a-service/sub-account.md)
+- [Account Management](https://docs.doku.com/wallet-as-a-service/sub-account/account-management.md)
+- [Collect and Route](https://docs.doku.com/wallet-as-a-service/sub-account/collect-and-route.md)
+- [Deposit System](https://docs.doku.com/wallet-as-a-service/sub-account/deposit-system.md)
+- [Fund Oversight](https://docs.doku.com/wallet-as-a-service/sub-account/fund-oversight.md)
+- [FAQ](https://docs.doku.com/wallet-as-a-service/sub-account/faq.md)
+- [Juragan DOKU](https://docs.doku.com/mobile-apps/juragan-doku.md)
+- [DOKU e-Wallet](https://docs.doku.com/mobile-apps/doku-e-wallet.md)
+- [Account Settings](https://docs.doku.com/mobile-apps/doku-e-wallet/account-settings.md): DOKU e-Wallet Account Settings
+- [Account Verification](https://docs.doku.com/mobile-apps/doku-e-wallet/account-verification.md): DOKU e-Wallet Account Verification
+- [Top-Up and Withdrawal](https://docs.doku.com/mobile-apps/doku-e-wallet/top-up-and-withdrawal.md): DOKU e-Wallet Top-Up and Withdrawal
+- [Online Transactions and Purchases](https://docs.doku.com/mobile-apps/doku-e-wallet/online-transactions-and-purchases.md): DOKU e-Wallet Online Transactions and Purchases
+- [Education](https://docs.doku.com/use-cases/education.md)
+- [Digital & Gaming](https://docs.doku.com/use-cases/digital-and-gaming.md)
+- [Insurance](https://docs.doku.com/use-cases/insurance.md)
+- [Freelance](https://docs.doku.com/use-cases/freelance.md)
+- [Food & Beverages](https://docs.doku.com/use-cases/food-and-beverages.md)
+- [Retail](https://docs.doku.com/use-cases/retail.md)
+- [Travel & Hospitality](https://docs.doku.com/use-cases/travel-and-hospitality.md)
+- [Logistics](https://docs.doku.com/use-cases/logistics.md)
+- [Become a Partner](https://docs.doku.com/partner/become-a-partner.md)
+- [Licenses](https://docs.doku.com/security/licenses.md)
+- [Glossary](https://docs.doku.com/miscellaneous/glossary.md): Complete list of terms used in DOKU Docs
+- [SNAP Migration](https://docs.doku.com/miscellaneous/snap-migration.md): Standar Nasional Open API Pembayaran (SNAP) on DOKU
+- [Contact Support](https://docs.doku.com/miscellaneous/contact-support.md)
+
+
+---
+
+# Agent Instructions
+This documentation is published with GitBook. GitBook is the documentation platform designed so that both humans and AI agents can read, navigate, and reason over technical content effectively. Learn more at gitbook.com.
+
+## Querying This Documentation
+If you need additional information, you can query the documentation dynamically by asking a question.
+Perform an HTTP GET request on a page URL with the `ask` query parameter:
+```
+GET https://docs.doku.com/introduction.md?ask=<question>
+```
+The question should be specific, self-contained, and written in natural language.
+The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.
+Use this mechanism when the answer is not explicitly present in the current page, you need clarification or additional context, or you want to retrieve related documentation sections.

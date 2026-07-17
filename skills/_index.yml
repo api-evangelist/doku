@@ -1,0 +1,31 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/doku-openapi.yml (operationIds verified) + conventions/doku-conventions.yml + errors/doku-problem-types.yml
+note: >-
+  Packaged Agent Skills for DOKU's marquee payment flows, grounded in real
+  operationIds from openapi/doku-openapi.yml. DOKU additionally publishes
+  agent-native codegen skills in its official Claude Code / Cursor plugin
+  (github.com/PTNUSASATUINTIARTHA-DOKU/doku-codegen) and an official hosted MCP
+  server (mcp/doku-mcp.yml) — those are the provider-published surfaces; the
+  files below are API Evangelist operating instructions per flow.
+skills:
+  - file: doku-hosted-checkout.md
+    name: Create a DOKU-hosted checkout page
+    api: openapi/doku-openapi.yml
+    operations: [createCheckoutPayment]
+  - file: doku-virtual-account.md
+    name: Issue and reconcile a SNAP Virtual Account
+    api: openapi/doku-openapi.yml
+    operations: [getAccessTokenB2B, createVirtualAccount, inquiryVirtualAccountStatus, deleteVirtualAccount]
+  - file: doku-ewallet-debit.md
+    name: Bind an e-wallet and charge host-to-host
+    api: openapi/doku-openapi.yml
+    operations: [getAccessTokenB2B, bindEwalletAccount, ewalletBalanceInquiry, debitPaymentHostToHost, debitRefund, unbindEwalletAccount]
+  - file: doku-qris-mpm.md
+    name: Generate and reconcile a QRIS payment
+    api: openapi/doku-openapi.yml
+    operations: [getAccessTokenB2B, generateQrisMpm, queryQrisMpm, refundQrisMpm]
+  - file: doku-payout.md
+    name: Disburse funds with Kirim payout
+    api: openapi/doku-openapi.yml
+    operations: [getAccessTokenB2B, payoutBalanceInquiry, payoutAccountInquiry, payoutTransferBank, payoutCheckStatus]

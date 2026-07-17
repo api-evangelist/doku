@@ -1,0 +1,41 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  https://sandbox.doku.com + docs.doku.com/get-started/manage-business/set-up-integration/simulate-transactions
+  + developers.doku.com
+note: >-
+  DOKU provides a full sandbox with a dashboard-driven Payment Simulator rather
+  than published magic card/account numbers. Merchants create a Sandbox Account
+  (demo) separate from the production Business Account; each has its own API
+  keys. No fixed test PAN/VA values are published here — the simulator produces
+  the paid/failed outcomes interactively. Nothing below is invented.
+environments:
+  - name: sandbox
+    api_host: https://api-sandbox.doku.com
+    dashboard: https://sandbox.doku.com/
+    demo_site: https://sandbox.doku.com/demo/
+    account: DOKU Sandbox Account (demo)
+  - name: production
+    api_host: https://api.doku.com
+    dashboard: https://dashboard.doku.com/
+    account: DOKU Business Account (live)
+test_vs_live:
+  separation: separate hosts + separate accounts + separate API keys (Client-Id / SNAP X-CLIENT-KEY)
+  mcp_sandbox: https://api-sandbox.doku.com/doku-mcp-server/mcp
+simulator:
+  url_pattern: https://sandbox.doku.com/integration/simulator/<method>/inquiry
+  location: DOKU Sandbox Dashboard -> Settings -> Payment Settings -> Simulator
+  covers:
+    - Virtual Account
+    - e-Wallet (DOKU Wallet, DANA, OVO, ShopeePay)
+    - QRIS
+    - Cards
+    - Payment Link
+    - Digital Catalog
+  flow: >-
+    Select the payment method matching the one chosen at checkout, then click
+    Simulate to drive a paid/failed outcome and fire the payment notification
+    webhook.
+docs:
+  - https://docs.doku.com/get-started/manage-business/set-up-integration/simulate-transactions
+  - https://developers.doku.com/get-started-with-doku-api/user-registration

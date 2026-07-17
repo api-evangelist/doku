@@ -1,0 +1,53 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/doku-openapi.yml (responses) + developers.doku.com SNAP response-code convention
+format: snap-response-code
+note: >-
+  DOKU does not use RFC 9457 application/problem+json. Both API families return
+  a uniform JSON envelope: SNAP endpoints use {responseCode, responseMessage}
+  where responseCode is a 7-digit code (HTTP status 3 digits + 2-digit service
+  code + 2-digit case code); the non-SNAP Checkout API returns a message[]
+  array. These are the API-level problem types; payment-instrument declines and
+  business rejections are catalogued separately in errors/doku-decline-codes.yml.
+envelope:
+  snap: {responseCode: string, responseMessage: string}
+  checkout: {message: array<string>, error: object}
+problems:
+  - status: 200
+    response_code: '2002700'
+    title: Successful
+    area: SNAP transaction success
+  - status: 400
+    response_code: '4002701'
+    title: Invalid field format / bad request
+    remediation: Validate request body fields, amount format (decimal string, IDR), and required SNAP headers.
+  - status: 401
+    response_code: '4012700'
+    title: Unauthorized / invalid signature or token
+    remediation: Re-mint the SNAP Bearer token; verify X-SIGNATURE (SHA256withRSA for token, HMAC-SHA512 for transactions) and X-TIMESTAMP.
+    source_operation: openapi/doku-openapi.yml#getAccessTokenB2B
+  - status: 403
+    response_code: '4032700'
+    title: Forbidden / feature not activated
+    remediation: Confirm the payment channel/service is activated for the merchant in the DOKU Dashboard.
+  - status: 404
+    response_code: '4042712'
+    title: Invalid bill / Virtual Account not found
+    remediation: Verify the virtualAccountNo / partnerServiceId exists and has not expired.
+    source_operation: openapi/doku-openapi.yml#inquiryVirtualAccountStatus
+  - status: 404
+    response_code: '4042601'
+    title: Transaction not found
+    source_operation: openapi/doku-openapi.yml#payoutCheckStatus
+  - status: 409
+    response_code: '4092700'
+    title: Duplicate / conflict (idempotency)
+    remediation: Reuse of X-EXTERNAL-ID with a different payload; use a unique X-EXTERNAL-ID per distinct request.
+  - status: 500
+    response_code: '5002700'
+    title: General / internal error
+    remediation: Retry with the same X-EXTERNAL-ID; if it persists, contact DOKU support with the reference.
+  - status: 503
+    response_code: '5032700'
+    title: Service unavailable / downstream bank timeout
+    remediation: Retry with backoff; check status.doku.com.

@@ -1,0 +1,48 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/doku-openapi.yml ($ref links + id-reference fields)
+note: >-
+  Entity graph derived from the DOKU OpenAPI schemas and the SNAP transaction
+  bodies. DOKU is stateless-transaction oriented (no long-lived REST resource
+  tree); entities are the request/response objects and the identifiers that
+  correlate them across the transaction and its webhook notification.
+entities:
+  - name: CheckoutPayment
+    id_fields: [invoice_number, token_id]
+    source: openapi/doku-openapi.yml#CheckoutPaymentRequest
+    relationships:
+      - {type: has_one, target: HostedPaymentPage, via: url}
+  - name: VirtualAccount
+    id_fields: [virtualAccountNo, partnerServiceId, customerNo, trxId]
+    source: openapi/doku-openapi.yml#CreateVaRequest
+    relationships:
+      - {type: has_one, target: Amount, via: totalAmount}
+      - {type: has_many, target: PaymentNotification, via: virtualAccountNo}
+  - name: EwalletBinding
+    id_fields: [phoneNo, channel]
+    source: openapi/doku-openapi.yml#AccountBindingRequest
+    relationships:
+      - {type: has_many, target: DebitPayment, via: channel}
+  - name: DebitPayment
+    id_fields: [partnerReferenceNo]
+    source: openapi/doku-openapi.yml#DebitPaymentRequest
+    relationships:
+      - {type: has_one, target: Amount, via: amount}
+      - {type: belongs_to, target: EwalletBinding, via: channel}
+  - name: QrisPayment
+    id_fields: [partnerReferenceNo, merchantId]
+    source: openapi/doku-openapi.yml#QrisGenerateRequest
+    relationships:
+      - {type: has_one, target: Amount, via: amount}
+  - name: Payout
+    id_fields: [partnerReferenceNo]
+    relationships:
+      - {type: belongs_to, target: BankAccount, via: beneficiaryAccountNo}
+  - name: Amount
+    id_fields: []
+    fields: [value, currency]
+    note: All amounts settle in IDR.
+correlation:
+  idempotency_key: X-EXTERNAL-ID
+  business_reference: [partnerReferenceNo, partnerServiceId, invoice_number, trxId]
+  note: The same reference correlates a transaction request, its inquiry, and its webhook notification.

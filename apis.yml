@@ -171,6 +171,56 @@ common:
   url: finops/doku-finops.yml
 - url: https://www.doku.com/en-us/blog
   type: Blog
+- type: Packages
+  url: packages/doku-packages.yml
+- type: SDKs
+  url: packages/doku-packages.yml
+- type: MCPServer
+  url: mcp/doku-mcp.yml
+- type: LLMsTxt
+  url: llms/doku-llms.txt
+- type: Overlay
+  url: overlays/doku-overlay.yaml
+- type: Conventions
+  url: conventions/doku-conventions.yml
+- type: Idempotency
+  url: conventions/doku-conventions.yml
+- type: ErrorCatalog
+  url: errors/doku-problem-types.yml
+- type: DeclineCodes
+  url: errors/doku-decline-codes.yml
+- type: Conformance
+  url: conformance/doku-conformance.yml
+- type: Compliance
+  url: https://docs.doku.com/security/licenses
+- type: Lifecycle
+  url: lifecycle/doku-lifecycle.yml
+- type: StatusPage
+  url: https://status.doku.com
+- type: Deprecation
+  url: https://docs.doku.com/miscellaneous/snap-migration
+- type: Sandbox
+  url: sandbox/doku-sandbox.yml
+- type: DataModel
+  url: data-model/doku-data-model.yml
+- type: Webhooks
+  url: asyncapi/doku-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://developers.doku.com/
+- type: GettingStarted
+  url: https://developers.doku.com/get-started-with-doku-api/user-registration
+- type: Support
+  url: https://help.doku.com/en/support/home
+- type: Pricing
+  url: https://www.doku.com/en-us/pricing
+- type: SignUp
+  url: https://dashboard.doku.com/bo/registration
+- type: TermsOfService
+  url: https://dashboard.doku.com/doku-agreement/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://dashboard.doku.com/doku-agreement/privacy-policy
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

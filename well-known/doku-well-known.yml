@@ -1,0 +1,21 @@
+generated: '2026-07-17'
+method: probed
+source: live HTTP probes of DOKU API + website hosts
+note: >-
+  No /.well-known/ discovery documents are served on the DOKU API or website
+  hosts. A documentation-level llms.txt corpus IS published (see
+  llms/doku-llms.txt) but there is no RFC-8615 well-known surface. Absence is
+  valid recorded data; no WellKnown/SecurityTxt pointer is emitted.
+hosts:
+  - host: https://api.doku.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+  - host: https://www.doku.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+  - host: https://developers.doku.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}

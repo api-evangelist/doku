@@ -1,0 +1,28 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  developers.doku.com + docs.doku.com (SNAP migration) + status.doku.com
+versioning:
+  scheme: uri-path
+  current:
+    checkout: v1
+    snap-virtual-account: v1.1
+    snap-qris: v1.0
+    snap-token: v1
+  note: >-
+    Payment APIs are versioned in the URL path. Bank Indonesia SNAP endpoints
+    carry the SNAP interface version (e.g. bi-snap-va/v1.1); the non-SNAP
+    Checkout and legacy Direct API carry their own v1 path.
+deprecation:
+  policy_url: https://docs.doku.com/miscellaneous/snap-migration
+  sunset_header: false
+  note: >-
+    DOKU is migrating merchants from its legacy non-SNAP Direct API to the Bank
+    Indonesia SNAP interface. The SNAP Migration guide documents the transition;
+    the non-SNAP hosted Checkout API remains supported. No RFC 8594
+    Sunset/Deprecation response headers are documented.
+status_page: https://status.doku.com
+sla:
+  url: https://www.doku.com/en-us/pricing
+  note: Uptime/SLA commitments are handled per merchant agreement; no public numeric SLA is published.
+deprecated_operations: []

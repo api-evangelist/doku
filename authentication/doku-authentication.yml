@@ -1,5 +1,6 @@
 generated: '2026-07-17'
-method: derived
+method: searched
+docs: https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
 source: openapi/doku-openapi.yml + developers.doku.com
 summary:
   types:
