@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: DOKU Payment Access Token API
+  description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
+  version: '1.0'
+  contact:
+    name: DOKU Developer Support
+    url: https://developers.doku.com/
+  termsOfService: https://www.doku.com/en-us/terms-and-conditions
+servers:
+- url: https://api.doku.com
+  description: Production
+- url: https://api-sandbox.doku.com
+  description: Sandbox
+tags:
+- name: Access Token
+  description: SNAP B2B / B2B2C access-token issuance.
+paths:
+  /authorization/v1/access-token/b2b:
+    post:
+      operationId: getAccessTokenB2B
+      tags:
+      - Access Token
+      summary: Get SNAP B2B access token
+      description: Mints a 15-minute Bearer access token. The X-SIGNATURE header is an asymmetric SHA256withRSA signature over "clientId|X-TIMESTAMP".
+      security:
+      - SnapAsymmetric: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - grantType
+              properties:
+                grantType:
+                  type: string
+                  example: client_credentials
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /authorization/v1/access-token/b2b2c:
+    post:
+      operationId: getAccessTokenB2B2C
+      tags:
+      - Access Token
+      summary: Get SNAP B2B2C access token
+      description: Mints a customer-scoped B2B2C access token from an auth code.
+      security:
+      - SnapAsymmetric: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - grantType
+              properties:
+                grantType:
+                  type: string
+                  example: authorization_code
+                authCode:
+                  type: string
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+components:
+  schemas:
+    AccessTokenResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        accessToken:
+          type: string
+        tokenType:
+          type: string
+          example: Bearer
+        expiresIn:
+          type: string
+          example: '900'
+  securitySchemes:
+    CheckoutSignature:
+      type: apiKey
+      in: header
+      name: Signature
+      description: Non-SNAP scheme. Send Client-Id, Request-Id, Request-Timestamp and Signature headers. Signature = "HMACSHA256=" + base64(HMAC-SHA256( clientSecret, componentString )) where the component string joins Client-Id, Request-Id, Request-Timestamp, Request-Target and Digest (SHA-256 of the JSON body).
+    SnapAsymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP access-token signature. Asymmetric SHA256withRSA over "clientId|X-TIMESTAMP" using the merchant private key. Sent with X-CLIENT-KEY and X-TIMESTAMP.
+    SnapSymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP transaction signature. Symmetric HMAC-SHA512 over "HTTPMethod:EndpointUrl:AccessToken:Lowercase(HexEncode(SHA-256(minified body))):X-TIMESTAMP" using the client secret.
+    SnapBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SNAP B2B access token from /authorization/v1/access-token/b2b.

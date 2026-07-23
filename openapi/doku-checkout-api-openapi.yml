@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: DOKU Payment Access Token Checkout API
+  description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
+  version: '1.0'
+  contact:
+    name: DOKU Developer Support
+    url: https://developers.doku.com/
+  termsOfService: https://www.doku.com/en-us/terms-and-conditions
+servers:
+- url: https://api.doku.com
+  description: Production
+- url: https://api-sandbox.doku.com
+  description: Sandbox
+tags:
+- name: Checkout
+  description: DOKU-hosted checkout page (non-SNAP).
+paths:
+  /checkout/v1/payment:
+    post:
+      operationId: createCheckoutPayment
+      tags:
+      - Checkout
+      summary: Generate a DOKU-hosted checkout page
+      description: Creates a payment session and returns a hosted checkout page URL and token. Signed with the non-SNAP header scheme (Client-Id, Request-Id, Request-Timestamp, Signature = HMACSHA256=...).
+      security:
+      - CheckoutSignature: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutPaymentRequest'
+      responses:
+        '200':
+          description: Checkout page created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutPaymentResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    CheckoutPaymentResponse:
+      type: object
+      properties:
+        message:
+          type: array
+          items:
+            type: string
+        response:
+          type: object
+          properties:
+            order:
+              type: object
+              properties:
+                amount:
+                  type: string
+                invoice_number:
+                  type: string
+            payment:
+              type: object
+              properties:
+                token_id:
+                  type: string
+                url:
+                  type: string
+                  description: DOKU-hosted checkout page URL.
+                expired_date:
+                  type: string
+    CheckoutPaymentRequest:
+      type: object
+      properties:
+        order:
+          type: object
+          properties:
+            amount:
+              type: integer
+              example: 50000
+            invoice_number:
+              type: string
+              example: INV-20260717-001
+            currency:
+              type: string
+              example: IDR
+        payment:
+          type: object
+          properties:
+            payment_due_date:
+              type: integer
+              description: Minutes until the checkout page expires.
+              example: 60
+        customer:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+  responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseMessage:
+                type: string
+  securitySchemes:
+    CheckoutSignature:
+      type: apiKey
+      in: header
+      name: Signature
+      description: Non-SNAP scheme. Send Client-Id, Request-Id, Request-Timestamp and Signature headers. Signature = "HMACSHA256=" + base64(HMAC-SHA256( clientSecret, componentString )) where the component string joins Client-Id, Request-Id, Request-Timestamp, Request-Target and Digest (SHA-256 of the JSON body).
+    SnapAsymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP access-token signature. Asymmetric SHA256withRSA over "clientId|X-TIMESTAMP" using the merchant private key. Sent with X-CLIENT-KEY and X-TIMESTAMP.
+    SnapSymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP transaction signature. Symmetric HMAC-SHA512 over "HTTPMethod:EndpointUrl:AccessToken:Lowercase(HexEncode(SHA-256(minified body))):X-TIMESTAMP" using the client secret.
+    SnapBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SNAP B2B access token from /authorization/v1/access-token/b2b.

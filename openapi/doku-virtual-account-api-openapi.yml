@@ -1,0 +1,243 @@
+openapi: 3.0.3
+info:
+  title: DOKU Payment Access Token Virtual Account API
+  description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
+  version: '1.0'
+  contact:
+    name: DOKU Developer Support
+    url: https://developers.doku.com/
+  termsOfService: https://www.doku.com/en-us/terms-and-conditions
+servers:
+- url: https://api.doku.com
+  description: Production
+- url: https://api-sandbox.doku.com
+  description: Sandbox
+tags:
+- name: Virtual Account
+  description: SNAP BI-SNAP Virtual Account lifecycle.
+paths:
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/create-va:
+    post:
+      operationId: createVirtualAccount
+      tags:
+      - Virtual Account
+      summary: Create a SNAP virtual account
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVaRequest'
+      responses:
+        '200':
+          description: Virtual account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/update-va:
+    put:
+      operationId: updateVirtualAccount
+      tags:
+      - Virtual Account
+      summary: Update a SNAP virtual account
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVaRequest'
+      responses:
+        '200':
+          description: Virtual account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/delete-va:
+    delete:
+      operationId: deleteVirtualAccount
+      tags:
+      - Virtual Account
+      summary: Delete a SNAP virtual account
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerServiceId:
+                  type: string
+                customerNo:
+                  type: string
+                virtualAccountNo:
+                  type: string
+                trxId:
+                  type: string
+      responses:
+        '200':
+          description: Virtual account deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/inquiry:
+    post:
+      operationId: inquiryVirtualAccountStatus
+      tags:
+      - Virtual Account
+      summary: Inquire SNAP virtual account payment status
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerServiceId:
+                  type: string
+                customerNo:
+                  type: string
+                virtualAccountNo:
+                  type: string
+                inquiryRequestId:
+                  type: string
+      responses:
+        '200':
+          description: Inquiry result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+components:
+  parameters:
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+  schemas:
+    CreateVaRequest:
+      type: object
+      properties:
+        partnerServiceId:
+          type: string
+        customerNo:
+          type: string
+        virtualAccountNo:
+          type: string
+        virtualAccountName:
+          type: string
+        trxId:
+          type: string
+        totalAmount:
+          $ref: '#/components/schemas/Amount'
+        virtualAccountConfig:
+          type: object
+          properties:
+            reusableStatus:
+              type: boolean
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type: object
+          nullable: true
+        additionalInfo:
+          type: object
+          nullable: true
+  securitySchemes:
+    CheckoutSignature:
+      type: apiKey
+      in: header
+      name: Signature
+      description: Non-SNAP scheme. Send Client-Id, Request-Id, Request-Timestamp and Signature headers. Signature = "HMACSHA256=" + base64(HMAC-SHA256( clientSecret, componentString )) where the component string joins Client-Id, Request-Id, Request-Timestamp, Request-Target and Digest (SHA-256 of the JSON body).
+    SnapAsymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP access-token signature. Asymmetric SHA256withRSA over "clientId|X-TIMESTAMP" using the merchant private key. Sent with X-CLIENT-KEY and X-TIMESTAMP.
+    SnapSymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP transaction signature. Symmetric HMAC-SHA512 over "HTTPMethod:EndpointUrl:AccessToken:Lowercase(HexEncode(SHA-256(minified body))):X-TIMESTAMP" using the client secret.
+    SnapBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SNAP B2B access token from /authorization/v1/access-token/b2b.

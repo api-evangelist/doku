@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: DOKU Payment Access Token Direct Debit & e-Wallet API
+  description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
+  version: '1.0'
+  contact:
+    name: DOKU Developer Support
+    url: https://developers.doku.com/
+  termsOfService: https://www.doku.com/en-us/terms-and-conditions
+servers:
+- url: https://api.doku.com
+  description: Production
+- url: https://api-sandbox.doku.com
+  description: Sandbox
+tags:
+- name: Direct Debit & e-Wallet
+  description: SNAP account binding and host-to-host debit for e-wallets and bank direct debit.
+paths:
+  /direct-debit/core/v1/registration-account-binding:
+    post:
+      operationId: bindEwalletAccount
+      tags:
+      - Direct Debit & e-Wallet
+      summary: Bind an e-wallet / direct-debit account
+      description: Registers a binding between the merchant and a customer's e-wallet (OVO, DANA, ShopeePay) or bank direct-debit account.
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountBindingRequest'
+      responses:
+        '200':
+          description: Binding created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/balance-inquiry:
+    post:
+      operationId: ewalletBalanceInquiry
+      tags:
+      - Direct Debit & e-Wallet
+      summary: Inquire bound account balance
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                additionalInfo:
+                  type: object
+      responses:
+        '200':
+          description: Balance result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/debit/payment-host-to-host:
+    post:
+      operationId: debitPaymentHostToHost
+      tags:
+      - Direct Debit & e-Wallet
+      summary: Charge a bound e-wallet / direct-debit account
+      description: Host-to-host debit against a bound OVO / DANA / ShopeePay / direct-debit account. Amount is in IDR.
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebitPaymentRequest'
+      responses:
+        '200':
+          description: Debit result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/debit/refund:
+    post:
+      operationId: debitRefund
+      tags:
+      - Direct Debit & e-Wallet
+      summary: Refund a direct-debit / e-wallet payment
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalPartnerReferenceNo:
+                  type: string
+                refundAmount:
+                  $ref: '#/components/schemas/Amount'
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Refund result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/registration-account-unbinding:
+    post:
+      operationId: unbindEwalletAccount
+      tags:
+      - Direct Debit & e-Wallet
+      summary: Unbind an e-wallet / direct-debit account
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tokenId:
+                  type: string
+      responses:
+        '200':
+          description: Unbinding result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+components:
+  parameters:
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+  schemas:
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
+    AccountBindingRequest:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+        redirectUrl:
+          type: string
+        additionalInfo:
+          type: object
+          properties:
+            channel:
+              type: string
+              example: DIRECT_DEBIT_OVO_SNAP
+    DebitPaymentRequest:
+      type: object
+      properties:
+        partnerReferenceNo:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        additionalInfo:
+          type: object
+          properties:
+            channel:
+              type: string
+              example: EMONEY_OVO_SNAP
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type: object
+          nullable: true
+        additionalInfo:
+          type: object
+          nullable: true
+  securitySchemes:
+    CheckoutSignature:
+      type: apiKey
+      in: header
+      name: Signature
+      description: Non-SNAP scheme. Send Client-Id, Request-Id, Request-Timestamp and Signature headers. Signature = "HMACSHA256=" + base64(HMAC-SHA256( clientSecret, componentString )) where the component string joins Client-Id, Request-Id, Request-Timestamp, Request-Target and Digest (SHA-256 of the JSON body).
+    SnapAsymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP access-token signature. Asymmetric SHA256withRSA over "clientId|X-TIMESTAMP" using the merchant private key. Sent with X-CLIENT-KEY and X-TIMESTAMP.
+    SnapSymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP transaction signature. Symmetric HMAC-SHA512 over "HTTPMethod:EndpointUrl:AccessToken:Lowercase(HexEncode(SHA-256(minified body))):X-TIMESTAMP" using the client secret.
+    SnapBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SNAP B2B access token from /authorization/v1/access-token/b2b.

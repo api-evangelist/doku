@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: DOKU Payment Access Token QRIS API
+  description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
+  version: '1.0'
+  contact:
+    name: DOKU Developer Support
+    url: https://developers.doku.com/
+  termsOfService: https://www.doku.com/en-us/terms-and-conditions
+servers:
+- url: https://api.doku.com
+  description: Production
+- url: https://api-sandbox.doku.com
+  description: Sandbox
+tags:
+- name: QRIS
+  description: SNAP QRIS Merchant-Presented Mode.
+paths:
+  /snap-adapter/b2b/v1.0/qr/qr-mpm-generate:
+    post:
+      operationId: generateQrisMpm
+      tags:
+      - QRIS
+      summary: Generate a QRIS Merchant-Presented Mode code
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QrisGenerateRequest'
+      responses:
+        '200':
+          description: QRIS content generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /snap-adapter/b2b/v1.0/qr/qr-mpm-query:
+    post:
+      operationId: queryQrisMpm
+      tags:
+      - QRIS
+      summary: Query a QRIS payment status
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalReferenceNo:
+                  type: string
+                serviceCode:
+                  type: string
+      responses:
+        '200':
+          description: QRIS status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /snap-adapter/b2b/v1.0/qr/qr-mpm-refund:
+    post:
+      operationId: refundQrisMpm
+      tags:
+      - QRIS
+      summary: Refund a QRIS payment
+      security:
+      - SnapBearer: []
+        SnapSymmetric: []
+      parameters:
+      - $ref: '#/components/parameters/XPartnerId'
+      - $ref: '#/components/parameters/XExternalId'
+      - $ref: '#/components/parameters/XTimestamp'
+      - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalReferenceNo:
+                  type: string
+                refundAmount:
+                  $ref: '#/components/schemas/Amount'
+      responses:
+        '200':
+          description: QRIS refund result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+components:
+  parameters:
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+  schemas:
+    QrisGenerateRequest:
+      type: object
+      properties:
+        partnerReferenceNo:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        merchantId:
+          type: string
+        validityPeriod:
+          type: string
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type: object
+          nullable: true
+        additionalInfo:
+          type: object
+          nullable: true
+  securitySchemes:
+    CheckoutSignature:
+      type: apiKey
+      in: header
+      name: Signature
+      description: Non-SNAP scheme. Send Client-Id, Request-Id, Request-Timestamp and Signature headers. Signature = "HMACSHA256=" + base64(HMAC-SHA256( clientSecret, componentString )) where the component string joins Client-Id, Request-Id, Request-Timestamp, Request-Target and Digest (SHA-256 of the JSON body).
+    SnapAsymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP access-token signature. Asymmetric SHA256withRSA over "clientId|X-TIMESTAMP" using the merchant private key. Sent with X-CLIENT-KEY and X-TIMESTAMP.
+    SnapSymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: SNAP transaction signature. Symmetric HMAC-SHA512 over "HTTPMethod:EndpointUrl:AccessToken:Lowercase(HexEncode(SHA-256(minified body))):X-TIMESTAMP" using the client secret.
+    SnapBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SNAP B2B access token from /authorization/v1/access-token/b2b.
