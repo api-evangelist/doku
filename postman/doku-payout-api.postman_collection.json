@@ -1,0 +1,622 @@
+{
+  "info": {
+    "_postman_id": "dc7e5506-2043-4295-8419-7bcefd99133f",
+    "name": "DOKU Payment Access Token Payout API",
+    "description": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:32:31.000Z",
+    "updatedAt": "2026-07-28T01:32:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-dc7e5506-2043-4295-8419-7bcefd99133f"
+  },
+  "item": [
+    {
+      "name": "payout",
+      "item": [
+        {
+          "name": "kirim-doku",
+          "item": [
+            {
+              "name": "balance-inquiry",
+              "item": [
+                {
+                  "name": "Inquire disbursement source balance",
+                  "id": "76e44938-8b7f-4de4-b584-6ecb91447b42",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Merchant partner identifier issued by DOKU.",
+                        "key": "X-PARTNER-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Unique per-request idempotency identifier.",
+                        "key": "X-EXTERNAL-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ISO 8601 request timestamp.",
+                        "key": "X-TIMESTAMP",
+                        "value": "<dateTime>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payout/kirim-doku/balance-inquiry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payout",
+                        "kirim-doku",
+                        "balance-inquiry"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "d3e9b422-818c-4819-a0a4-b06340c8309e",
+                      "name": "Balance result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payout/kirim-doku/balance-inquiry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payout",
+                            "kirim-doku",
+                            "balance-inquiry"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                      "createdAt": "2026-07-28T01:32:32.000Z",
+                      "updatedAt": "2026-07-28T01:32:32.000Z",
+                      "uid": "35240-d3e9b422-818c-4819-a0a4-b06340c8309e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:32:32.000Z",
+                  "updatedAt": "2026-07-28T01:32:32.000Z",
+                  "uid": "35240-76e44938-8b7f-4de4-b584-6ecb91447b42"
+                }
+              ],
+              "id": "af1abd2a-4f3d-4428-9e1a-1f219de3cf98",
+              "createdAt": "2026-07-28T01:32:32.000Z",
+              "updatedAt": "2026-07-28T01:32:32.000Z",
+              "uid": "35240-af1abd2a-4f3d-4428-9e1a-1f219de3cf98"
+            },
+            {
+              "name": "account-inquiry",
+              "item": [
+                {
+                  "name": "Validate a recipient bank account",
+                  "id": "7394b43b-3f55-4ab0-b37f-2440e243d100",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Merchant partner identifier issued by DOKU.",
+                        "key": "X-PARTNER-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Unique per-request idempotency identifier.",
+                        "key": "X-EXTERNAL-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ISO 8601 request timestamp.",
+                        "key": "X-TIMESTAMP",
+                        "value": "<dateTime>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"beneficiaryBankCode\": \"<string>\",\n  \"beneficiaryAccountNo\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payout/kirim-doku/account-inquiry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payout",
+                        "kirim-doku",
+                        "account-inquiry"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "0d431685-9f45-4b94-a198-710bb38e1cac",
+                      "name": "Account inquiry result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"beneficiaryBankCode\": \"<string>\",\n  \"beneficiaryAccountNo\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payout/kirim-doku/account-inquiry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payout",
+                            "kirim-doku",
+                            "account-inquiry"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                      "createdAt": "2026-07-28T01:32:32.000Z",
+                      "updatedAt": "2026-07-28T01:32:32.000Z",
+                      "uid": "35240-0d431685-9f45-4b94-a198-710bb38e1cac"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:32:32.000Z",
+                  "updatedAt": "2026-07-28T01:32:32.000Z",
+                  "uid": "35240-7394b43b-3f55-4ab0-b37f-2440e243d100"
+                }
+              ],
+              "id": "bd6a80d7-b9d9-4d21-ba8f-237645c26147",
+              "createdAt": "2026-07-28T01:32:32.000Z",
+              "updatedAt": "2026-07-28T01:32:32.000Z",
+              "uid": "35240-bd6a80d7-b9d9-4d21-ba8f-237645c26147"
+            },
+            {
+              "name": "transfer-bank",
+              "item": [
+                {
+                  "name": "Disburse funds to a recipient bank account",
+                  "id": "32e3660a-7245-429c-b51b-3a4f9d15b9fe",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Merchant partner identifier issued by DOKU.",
+                        "key": "X-PARTNER-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Unique per-request idempotency identifier.",
+                        "key": "X-EXTERNAL-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ISO 8601 request timestamp.",
+                        "key": "X-TIMESTAMP",
+                        "value": "<dateTime>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"partnerReferenceNo\": \"<string>\",\n  \"beneficiaryBankCode\": \"<string>\",\n  \"beneficiaryAccountNo\": \"<string>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"remark\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payout/kirim-doku/transfer-bank",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payout",
+                        "kirim-doku",
+                        "transfer-bank"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "fad67a9d-772f-4bf6-b323-da3ea48139f2",
+                      "name": "Transfer result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"partnerReferenceNo\": \"<string>\",\n  \"beneficiaryBankCode\": \"<string>\",\n  \"beneficiaryAccountNo\": \"<string>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"remark\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payout/kirim-doku/transfer-bank",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payout",
+                            "kirim-doku",
+                            "transfer-bank"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                      "createdAt": "2026-07-28T01:32:32.000Z",
+                      "updatedAt": "2026-07-28T01:32:32.000Z",
+                      "uid": "35240-fad67a9d-772f-4bf6-b323-da3ea48139f2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:32:32.000Z",
+                  "updatedAt": "2026-07-28T01:32:32.000Z",
+                  "uid": "35240-32e3660a-7245-429c-b51b-3a4f9d15b9fe"
+                }
+              ],
+              "id": "52372a68-6d1a-4ccb-9b52-b495ecc3a032",
+              "createdAt": "2026-07-28T01:32:32.000Z",
+              "updatedAt": "2026-07-28T01:32:32.000Z",
+              "uid": "35240-52372a68-6d1a-4ccb-9b52-b495ecc3a032"
+            },
+            {
+              "name": "check-status",
+              "item": [
+                {
+                  "name": "Check a disbursement transaction status",
+                  "id": "d4a8f44e-539b-4a5c-b2bb-6c813a37fce6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Merchant partner identifier issued by DOKU.",
+                        "key": "X-PARTNER-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Unique per-request idempotency identifier.",
+                        "key": "X-EXTERNAL-ID",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) ISO 8601 request timestamp.",
+                        "key": "X-TIMESTAMP",
+                        "value": "<dateTime>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"originalPartnerReferenceNo\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payout/kirim-doku/check-status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payout",
+                        "kirim-doku",
+                        "check-status"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "cf3a3876-3b81-4385-946e-1c620cd4f13d",
+                      "name": "Status result",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"originalPartnerReferenceNo\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payout/kirim-doku/check-status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payout",
+                            "kirim-doku",
+                            "check-status"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                      "createdAt": "2026-07-28T01:32:32.000Z",
+                      "updatedAt": "2026-07-28T01:32:32.000Z",
+                      "uid": "35240-cf3a3876-3b81-4385-946e-1c620cd4f13d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:32:32.000Z",
+                  "updatedAt": "2026-07-28T01:32:32.000Z",
+                  "uid": "35240-d4a8f44e-539b-4a5c-b2bb-6c813a37fce6"
+                }
+              ],
+              "id": "479a467c-11d0-4299-9902-e8fecc8bf21a",
+              "createdAt": "2026-07-28T01:32:32.000Z",
+              "updatedAt": "2026-07-28T01:32:32.000Z",
+              "uid": "35240-479a467c-11d0-4299-9902-e8fecc8bf21a"
+            }
+          ],
+          "id": "9c60dc0e-8a9a-4335-a17f-dfda83179355",
+          "createdAt": "2026-07-28T01:32:32.000Z",
+          "updatedAt": "2026-07-28T01:32:32.000Z",
+          "uid": "35240-9c60dc0e-8a9a-4335-a17f-dfda83179355"
+        }
+      ],
+      "id": "92d5f6a1-a376-4a22-9c3d-cbb85028f041",
+      "createdAt": "2026-07-28T01:32:32.000Z",
+      "updatedAt": "2026-07-28T01:32:32.000Z",
+      "uid": "35240-92d5f6a1-a376-4a22-9c3d-cbb85028f041"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.doku.com"
+    }
+  ]
+}

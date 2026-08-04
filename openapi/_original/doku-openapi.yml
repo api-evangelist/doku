@@ -1,0 +1,856 @@
+# DOKU Payment API - OpenAPI 3.0
+#
+# PROVENANCE: modeled-from-docs. DOKU does not publish a single downloadable
+# OpenAPI document. This spec was modeled from DOKU's live developer
+# documentation (developers.doku.com) and dashboard technical references,
+# verified July 2026. Hosts, paths, headers, and the two distinct auth models
+# (non-SNAP HMAC-SHA256 header signature for Checkout; Bank Indonesia SNAP
+# asymmetric SHA256withRSA token + HMAC-SHA512 transaction signature) were
+# confirmed against:
+#   - https://developers.doku.com/accept-payments/doku-checkout/integration-guide/backend-integration
+#   - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b
+#   - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account
+#   - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/e-wallet/ovo
+#   - https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/qris
+#   - https://developers.doku.com/payout/kirim-doku
+# Request/response bodies are illustrative of documented fields; consult the
+# live reference for the exhaustive schema. All amounts settle in IDR.
+openapi: 3.0.3
+info:
+  title: DOKU Payment API
+  description: >-
+    DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the
+    non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open
+    API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit,
+    QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id +
+    Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric
+    SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
+  version: '1.0'
+  contact:
+    name: DOKU Developer Support
+    url: https://developers.doku.com/
+  termsOfService: https://www.doku.com/en-us/terms-and-conditions
+servers:
+  - url: https://api.doku.com
+    description: Production
+  - url: https://api-sandbox.doku.com
+    description: Sandbox
+tags:
+  - name: Checkout
+    description: DOKU-hosted checkout page (non-SNAP).
+  - name: Access Token
+    description: SNAP B2B / B2B2C access-token issuance.
+  - name: Virtual Account
+    description: SNAP BI-SNAP Virtual Account lifecycle.
+  - name: Direct Debit & e-Wallet
+    description: SNAP account binding and host-to-host debit for e-wallets and bank direct debit.
+  - name: QRIS
+    description: SNAP QRIS Merchant-Presented Mode.
+  - name: Payout
+    description: Kirim DOKU disbursement to bank accounts.
+paths:
+  /checkout/v1/payment:
+    post:
+      operationId: createCheckoutPayment
+      tags:
+        - Checkout
+      summary: Generate a DOKU-hosted checkout page
+      description: >-
+        Creates a payment session and returns a hosted checkout page URL and
+        token. Signed with the non-SNAP header scheme (Client-Id, Request-Id,
+        Request-Timestamp, Signature = HMACSHA256=...).
+      security:
+        - CheckoutSignature: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckoutPaymentRequest'
+      responses:
+        '200':
+          description: Checkout page created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutPaymentResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+  /authorization/v1/access-token/b2b:
+    post:
+      operationId: getAccessTokenB2B
+      tags:
+        - Access Token
+      summary: Get SNAP B2B access token
+      description: >-
+        Mints a 15-minute Bearer access token. The X-SIGNATURE header is an
+        asymmetric SHA256withRSA signature over "clientId|X-TIMESTAMP".
+      security:
+        - SnapAsymmetric: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [grantType]
+              properties:
+                grantType:
+                  type: string
+                  example: client_credentials
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /authorization/v1/access-token/b2b2c:
+    post:
+      operationId: getAccessTokenB2B2C
+      tags:
+        - Access Token
+      summary: Get SNAP B2B2C access token
+      description: Mints a customer-scoped B2B2C access token from an auth code.
+      security:
+        - SnapAsymmetric: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [grantType]
+              properties:
+                grantType:
+                  type: string
+                  example: authorization_code
+                authCode:
+                  type: string
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/create-va:
+    post:
+      operationId: createVirtualAccount
+      tags:
+        - Virtual Account
+      summary: Create a SNAP virtual account
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVaRequest'
+      responses:
+        '200':
+          description: Virtual account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/update-va:
+    put:
+      operationId: updateVirtualAccount
+      tags:
+        - Virtual Account
+      summary: Update a SNAP virtual account
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVaRequest'
+      responses:
+        '200':
+          description: Virtual account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/delete-va:
+    delete:
+      operationId: deleteVirtualAccount
+      tags:
+        - Virtual Account
+      summary: Delete a SNAP virtual account
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerServiceId:
+                  type: string
+                customerNo:
+                  type: string
+                virtualAccountNo:
+                  type: string
+                trxId:
+                  type: string
+      responses:
+        '200':
+          description: Virtual account deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /virtual-accounts/bi-snap-va/v1.1/transfer-va/inquiry:
+    post:
+      operationId: inquiryVirtualAccountStatus
+      tags:
+        - Virtual Account
+      summary: Inquire SNAP virtual account payment status
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerServiceId:
+                  type: string
+                customerNo:
+                  type: string
+                virtualAccountNo:
+                  type: string
+                inquiryRequestId:
+                  type: string
+      responses:
+        '200':
+          description: Inquiry result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/registration-account-binding:
+    post:
+      operationId: bindEwalletAccount
+      tags:
+        - Direct Debit & e-Wallet
+      summary: Bind an e-wallet / direct-debit account
+      description: >-
+        Registers a binding between the merchant and a customer's e-wallet
+        (OVO, DANA, ShopeePay) or bank direct-debit account.
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountBindingRequest'
+      responses:
+        '200':
+          description: Binding created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/balance-inquiry:
+    post:
+      operationId: ewalletBalanceInquiry
+      tags:
+        - Direct Debit & e-Wallet
+      summary: Inquire bound account balance
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                additionalInfo:
+                  type: object
+      responses:
+        '200':
+          description: Balance result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/debit/payment-host-to-host:
+    post:
+      operationId: debitPaymentHostToHost
+      tags:
+        - Direct Debit & e-Wallet
+      summary: Charge a bound e-wallet / direct-debit account
+      description: >-
+        Host-to-host debit against a bound OVO / DANA / ShopeePay / direct-debit
+        account. Amount is in IDR.
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebitPaymentRequest'
+      responses:
+        '200':
+          description: Debit result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/debit/refund:
+    post:
+      operationId: debitRefund
+      tags:
+        - Direct Debit & e-Wallet
+      summary: Refund a direct-debit / e-wallet payment
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalPartnerReferenceNo:
+                  type: string
+                refundAmount:
+                  $ref: '#/components/schemas/Amount'
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Refund result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /direct-debit/core/v1/registration-account-unbinding:
+    post:
+      operationId: unbindEwalletAccount
+      tags:
+        - Direct Debit & e-Wallet
+      summary: Unbind an e-wallet / direct-debit account
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tokenId:
+                  type: string
+      responses:
+        '200':
+          description: Unbinding result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /snap-adapter/b2b/v1.0/qr/qr-mpm-generate:
+    post:
+      operationId: generateQrisMpm
+      tags:
+        - QRIS
+      summary: Generate a QRIS Merchant-Presented Mode code
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QrisGenerateRequest'
+      responses:
+        '200':
+          description: QRIS content generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /snap-adapter/b2b/v1.0/qr/qr-mpm-query:
+    post:
+      operationId: queryQrisMpm
+      tags:
+        - QRIS
+      summary: Query a QRIS payment status
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalReferenceNo:
+                  type: string
+                serviceCode:
+                  type: string
+      responses:
+        '200':
+          description: QRIS status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /snap-adapter/b2b/v1.0/qr/qr-mpm-refund:
+    post:
+      operationId: refundQrisMpm
+      tags:
+        - QRIS
+      summary: Refund a QRIS payment
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+        - $ref: '#/components/parameters/ChannelId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalReferenceNo:
+                  type: string
+                refundAmount:
+                  $ref: '#/components/schemas/Amount'
+      responses:
+        '200':
+          description: QRIS refund result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /payout/kirim-doku/balance-inquiry:
+    post:
+      operationId: payoutBalanceInquiry
+      tags:
+        - Payout
+      summary: Inquire disbursement source balance
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+      responses:
+        '200':
+          description: Balance result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /payout/kirim-doku/account-inquiry:
+    post:
+      operationId: payoutAccountInquiry
+      tags:
+        - Payout
+      summary: Validate a recipient bank account
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                beneficiaryBankCode:
+                  type: string
+                beneficiaryAccountNo:
+                  type: string
+      responses:
+        '200':
+          description: Account inquiry result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /payout/kirim-doku/transfer-bank:
+    post:
+      operationId: payoutTransferBank
+      tags:
+        - Payout
+      summary: Disburse funds to a recipient bank account
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partnerReferenceNo:
+                  type: string
+                beneficiaryBankCode:
+                  type: string
+                beneficiaryAccountNo:
+                  type: string
+                amount:
+                  $ref: '#/components/schemas/Amount'
+                remark:
+                  type: string
+      responses:
+        '200':
+          description: Transfer result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+  /payout/kirim-doku/check-status:
+    post:
+      operationId: payoutCheckStatus
+      tags:
+        - Payout
+      summary: Check a disbursement transaction status
+      security:
+        - SnapBearer: []
+          SnapSymmetric: []
+      parameters:
+        - $ref: '#/components/parameters/XPartnerId'
+        - $ref: '#/components/parameters/XExternalId'
+        - $ref: '#/components/parameters/XTimestamp'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalPartnerReferenceNo:
+                  type: string
+      responses:
+        '200':
+          description: Status result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+components:
+  securitySchemes:
+    CheckoutSignature:
+      type: apiKey
+      in: header
+      name: Signature
+      description: >-
+        Non-SNAP scheme. Send Client-Id, Request-Id, Request-Timestamp and
+        Signature headers. Signature = "HMACSHA256=" + base64(HMAC-SHA256(
+        clientSecret, componentString )) where the component string joins
+        Client-Id, Request-Id, Request-Timestamp, Request-Target and
+        Digest (SHA-256 of the JSON body).
+    SnapAsymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: >-
+        SNAP access-token signature. Asymmetric SHA256withRSA over
+        "clientId|X-TIMESTAMP" using the merchant private key. Sent with
+        X-CLIENT-KEY and X-TIMESTAMP.
+    SnapSymmetric:
+      type: apiKey
+      in: header
+      name: X-SIGNATURE
+      description: >-
+        SNAP transaction signature. Symmetric HMAC-SHA512 over
+        "HTTPMethod:EndpointUrl:AccessToken:Lowercase(HexEncode(SHA-256(minified
+        body))):X-TIMESTAMP" using the client secret.
+    SnapBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: SNAP B2B access token from /authorization/v1/access-token/b2b.
+  parameters:
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+  responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseMessage:
+                type: string
+  schemas:
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
+    CheckoutPaymentRequest:
+      type: object
+      properties:
+        order:
+          type: object
+          properties:
+            amount:
+              type: integer
+              example: 50000
+            invoice_number:
+              type: string
+              example: INV-20260717-001
+            currency:
+              type: string
+              example: IDR
+        payment:
+          type: object
+          properties:
+            payment_due_date:
+              type: integer
+              description: Minutes until the checkout page expires.
+              example: 60
+        customer:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+    CheckoutPaymentResponse:
+      type: object
+      properties:
+        message:
+          type: array
+          items:
+            type: string
+        response:
+          type: object
+          properties:
+            order:
+              type: object
+              properties:
+                amount:
+                  type: string
+                invoice_number:
+                  type: string
+            payment:
+              type: object
+              properties:
+                token_id:
+                  type: string
+                url:
+                  type: string
+                  description: DOKU-hosted checkout page URL.
+                expired_date:
+                  type: string
+    AccessTokenResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+        responseMessage:
+          type: string
+        accessToken:
+          type: string
+        tokenType:
+          type: string
+          example: Bearer
+        expiresIn:
+          type: string
+          example: '900'
+    CreateVaRequest:
+      type: object
+      properties:
+        partnerServiceId:
+          type: string
+        customerNo:
+          type: string
+        virtualAccountNo:
+          type: string
+        virtualAccountName:
+          type: string
+        trxId:
+          type: string
+        totalAmount:
+          $ref: '#/components/schemas/Amount'
+        virtualAccountConfig:
+          type: object
+          properties:
+            reusableStatus:
+              type: boolean
+    AccountBindingRequest:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+        redirectUrl:
+          type: string
+        additionalInfo:
+          type: object
+          properties:
+            channel:
+              type: string
+              example: DIRECT_DEBIT_OVO_SNAP
+    DebitPaymentRequest:
+      type: object
+      properties:
+        partnerReferenceNo:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        additionalInfo:
+          type: object
+          properties:
+            channel:
+              type: string
+              example: EMONEY_OVO_SNAP
+    QrisGenerateRequest:
+      type: object
+      properties:
+        partnerReferenceNo:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        merchantId:
+          type: string
+        validityPeriod:
+          type: string
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type: object
+          nullable: true
+        additionalInfo:
+          type: object
+          nullable: true

@@ -1,0 +1,887 @@
+{
+  "info": {
+    "_postman_id": "9e858025-55cb-4277-bfe3-a26eed26aecd",
+    "name": "DOKU Payment Access Token Direct Debit & e-Wallet API",
+    "description": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:32:18.000Z",
+    "updatedAt": "2026-07-28T01:32:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9e858025-55cb-4277-bfe3-a26eed26aecd"
+  },
+  "item": [
+    {
+      "name": "direct-debit",
+      "item": [
+        {
+          "name": "core",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "registration-account-binding",
+                  "item": [
+                    {
+                      "name": "Bind an e-wallet / direct-debit account",
+                      "id": "9b99bb2b-8340-4bc2-8e3a-5171477599fc",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "description": "SNAP channel identifier (e.g. H2H).",
+                            "key": "CHANNEL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"phoneNo\": \"<string>\",\n  \"redirectUrl\": \"<string>\",\n  \"additionalInfo\": {\n    \"channel\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/direct-debit/core/v1/registration-account-binding",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "direct-debit",
+                            "core",
+                            "v1",
+                            "registration-account-binding"
+                          ]
+                        },
+                        "description": "Registers a binding between the merchant and a customer's e-wallet (OVO, DANA, ShopeePay) or bank direct-debit account."
+                      },
+                      "response": [
+                        {
+                          "id": "82325d9f-1369-4bf7-89b0-f81702188020",
+                          "name": "Binding created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"phoneNo\": \"<string>\",\n  \"redirectUrl\": \"<string>\",\n  \"additionalInfo\": {\n    \"channel\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/direct-debit/core/v1/registration-account-binding",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "direct-debit",
+                                "core",
+                                "v1",
+                                "registration-account-binding"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                          "createdAt": "2026-07-28T01:32:19.000Z",
+                          "updatedAt": "2026-07-28T01:32:19.000Z",
+                          "uid": "35240-82325d9f-1369-4bf7-89b0-f81702188020"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:32:19.000Z",
+                      "updatedAt": "2026-07-28T01:32:19.000Z",
+                      "uid": "35240-9b99bb2b-8340-4bc2-8e3a-5171477599fc"
+                    }
+                  ],
+                  "id": "77dec034-b670-49fe-9b52-74ea70d9b5c7",
+                  "createdAt": "2026-07-28T01:32:19.000Z",
+                  "updatedAt": "2026-07-28T01:32:19.000Z",
+                  "uid": "35240-77dec034-b670-49fe-9b52-74ea70d9b5c7"
+                },
+                {
+                  "name": "balance-inquiry",
+                  "item": [
+                    {
+                      "name": "Inquire bound account balance",
+                      "id": "98b20382-d970-4bf9-b5fb-ec0940160067",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "description": "SNAP channel identifier (e.g. H2H).",
+                            "key": "CHANNEL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"additionalInfo\": {}\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/direct-debit/core/v1/balance-inquiry",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "direct-debit",
+                            "core",
+                            "v1",
+                            "balance-inquiry"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "3559e5b8-d59d-43e9-b746-432e4aee1e6c",
+                          "name": "Balance result",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"additionalInfo\": {}\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/direct-debit/core/v1/balance-inquiry",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "direct-debit",
+                                "core",
+                                "v1",
+                                "balance-inquiry"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                          "createdAt": "2026-07-28T01:32:19.000Z",
+                          "updatedAt": "2026-07-28T01:32:19.000Z",
+                          "uid": "35240-3559e5b8-d59d-43e9-b746-432e4aee1e6c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:32:19.000Z",
+                      "updatedAt": "2026-07-28T01:32:19.000Z",
+                      "uid": "35240-98b20382-d970-4bf9-b5fb-ec0940160067"
+                    }
+                  ],
+                  "id": "af1cb3a2-7f5a-45be-9cc7-131567fa81ab",
+                  "createdAt": "2026-07-28T01:32:19.000Z",
+                  "updatedAt": "2026-07-28T01:32:19.000Z",
+                  "uid": "35240-af1cb3a2-7f5a-45be-9cc7-131567fa81ab"
+                },
+                {
+                  "name": "debit",
+                  "item": [
+                    {
+                      "name": "payment-host-to-host",
+                      "item": [
+                        {
+                          "name": "Charge a bound e-wallet / direct-debit account",
+                          "id": "6ab6db73-79e0-419b-9fda-a3d16f4d6bbb",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"partnerReferenceNo\": \"<string>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"additionalInfo\": {\n    \"channel\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/direct-debit/core/v1/debit/payment-host-to-host",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "direct-debit",
+                                "core",
+                                "v1",
+                                "debit",
+                                "payment-host-to-host"
+                              ]
+                            },
+                            "description": "Host-to-host debit against a bound OVO / DANA / ShopeePay / direct-debit account. Amount is in IDR."
+                          },
+                          "response": [
+                            {
+                              "id": "34313268-8cd9-4072-893c-4f4e6703e1e0",
+                              "name": "Debit result",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                    "key": "X-PARTNER-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) Unique per-request idempotency identifier.",
+                                    "key": "X-EXTERNAL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) ISO 8601 request timestamp.",
+                                    "key": "X-TIMESTAMP",
+                                    "value": "<dateTime>"
+                                  },
+                                  {
+                                    "description": "SNAP channel identifier (e.g. H2H).",
+                                    "key": "CHANNEL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"partnerReferenceNo\": \"<string>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"additionalInfo\": {\n    \"channel\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/direct-debit/core/v1/debit/payment-host-to-host",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "direct-debit",
+                                    "core",
+                                    "v1",
+                                    "debit",
+                                    "payment-host-to-host"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                              "createdAt": "2026-07-28T01:32:19.000Z",
+                              "updatedAt": "2026-07-28T01:32:19.000Z",
+                              "uid": "35240-34313268-8cd9-4072-893c-4f4e6703e1e0"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:32:19.000Z",
+                          "updatedAt": "2026-07-28T01:32:19.000Z",
+                          "uid": "35240-6ab6db73-79e0-419b-9fda-a3d16f4d6bbb"
+                        }
+                      ],
+                      "id": "7ef82019-8596-49b5-b640-3926354c19de",
+                      "createdAt": "2026-07-28T01:32:19.000Z",
+                      "updatedAt": "2026-07-28T01:32:19.000Z",
+                      "uid": "35240-7ef82019-8596-49b5-b640-3926354c19de"
+                    },
+                    {
+                      "name": "refund",
+                      "item": [
+                        {
+                          "name": "Refund a direct-debit / e-wallet payment",
+                          "id": "bca5722d-7e11-40e7-9571-5b022f5c7e43",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"originalPartnerReferenceNo\": \"<string>\",\n  \"refundAmount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"reason\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/direct-debit/core/v1/debit/refund",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "direct-debit",
+                                "core",
+                                "v1",
+                                "debit",
+                                "refund"
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "0a5505c2-cab5-4daf-a5c5-62fbc79cf06d",
+                              "name": "Refund result",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                    "key": "X-PARTNER-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) Unique per-request idempotency identifier.",
+                                    "key": "X-EXTERNAL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) ISO 8601 request timestamp.",
+                                    "key": "X-TIMESTAMP",
+                                    "value": "<dateTime>"
+                                  },
+                                  {
+                                    "description": "SNAP channel identifier (e.g. H2H).",
+                                    "key": "CHANNEL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"originalPartnerReferenceNo\": \"<string>\",\n  \"refundAmount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"reason\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/direct-debit/core/v1/debit/refund",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "direct-debit",
+                                    "core",
+                                    "v1",
+                                    "debit",
+                                    "refund"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                              "createdAt": "2026-07-28T01:32:19.000Z",
+                              "updatedAt": "2026-07-28T01:32:19.000Z",
+                              "uid": "35240-0a5505c2-cab5-4daf-a5c5-62fbc79cf06d"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:32:19.000Z",
+                          "updatedAt": "2026-07-28T01:32:19.000Z",
+                          "uid": "35240-bca5722d-7e11-40e7-9571-5b022f5c7e43"
+                        }
+                      ],
+                      "id": "bba1efea-4036-473b-93eb-9e7a4476cee8",
+                      "createdAt": "2026-07-28T01:32:19.000Z",
+                      "updatedAt": "2026-07-28T01:32:19.000Z",
+                      "uid": "35240-bba1efea-4036-473b-93eb-9e7a4476cee8"
+                    }
+                  ],
+                  "id": "02b4a157-8130-4825-b8fa-f5445f47da37",
+                  "createdAt": "2026-07-28T01:32:19.000Z",
+                  "updatedAt": "2026-07-28T01:32:19.000Z",
+                  "uid": "35240-02b4a157-8130-4825-b8fa-f5445f47da37"
+                },
+                {
+                  "name": "registration-account-unbinding",
+                  "item": [
+                    {
+                      "name": "Unbind an e-wallet / direct-debit account",
+                      "id": "b02b182f-cb13-4da5-935c-7dd8a8a8af46",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Merchant partner identifier issued by DOKU.",
+                            "key": "X-PARTNER-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique per-request idempotency identifier.",
+                            "key": "X-EXTERNAL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) ISO 8601 request timestamp.",
+                            "key": "X-TIMESTAMP",
+                            "value": "<dateTime>"
+                          },
+                          {
+                            "description": "SNAP channel identifier (e.g. H2H).",
+                            "key": "CHANNEL-ID",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"tokenId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/direct-debit/core/v1/registration-account-unbinding",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "direct-debit",
+                            "core",
+                            "v1",
+                            "registration-account-unbinding"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "e0827c1c-8176-4641-bbce-df1a41d0ff65",
+                          "name": "Unbinding result",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"tokenId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/direct-debit/core/v1/registration-account-unbinding",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "direct-debit",
+                                "core",
+                                "v1",
+                                "registration-account-unbinding"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                          "createdAt": "2026-07-28T01:32:19.000Z",
+                          "updatedAt": "2026-07-28T01:32:19.000Z",
+                          "uid": "35240-e0827c1c-8176-4641-bbce-df1a41d0ff65"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:32:19.000Z",
+                      "updatedAt": "2026-07-28T01:32:19.000Z",
+                      "uid": "35240-b02b182f-cb13-4da5-935c-7dd8a8a8af46"
+                    }
+                  ],
+                  "id": "1bed88c9-14f5-42b6-9441-5f4237d11dcc",
+                  "createdAt": "2026-07-28T01:32:19.000Z",
+                  "updatedAt": "2026-07-28T01:32:19.000Z",
+                  "uid": "35240-1bed88c9-14f5-42b6-9441-5f4237d11dcc"
+                }
+              ],
+              "id": "92b0696b-e088-4cd7-9ac0-1868a60937d9",
+              "createdAt": "2026-07-28T01:32:19.000Z",
+              "updatedAt": "2026-07-28T01:32:19.000Z",
+              "uid": "35240-92b0696b-e088-4cd7-9ac0-1868a60937d9"
+            }
+          ],
+          "id": "d0feed44-f9fa-4db4-9e78-ff924557865e",
+          "createdAt": "2026-07-28T01:32:19.000Z",
+          "updatedAt": "2026-07-28T01:32:19.000Z",
+          "uid": "35240-d0feed44-f9fa-4db4-9e78-ff924557865e"
+        }
+      ],
+      "id": "e13e179e-8d2a-4c1b-aa62-b0bf9ff7bf86",
+      "createdAt": "2026-07-28T01:32:19.000Z",
+      "updatedAt": "2026-07-28T01:32:19.000Z",
+      "uid": "35240-e13e179e-8d2a-4c1b-aa62-b0bf9ff7bf86"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.doku.com"
+    }
+  ]
+}

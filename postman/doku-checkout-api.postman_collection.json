@@ -1,0 +1,288 @@
+{
+  "info": {
+    "_postman_id": "361da094-c5ed-4b29-bf5d-e229275e4857",
+    "name": "DOKU Payment Access Token Checkout API",
+    "description": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:32:13.000Z",
+    "updatedAt": "2026-07-28T01:32:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-361da094-c5ed-4b29-bf5d-e229275e4857"
+  },
+  "item": [
+    {
+      "name": "checkout",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "payment",
+              "item": [
+                {
+                  "name": "Generate a DOKU-hosted checkout page",
+                  "id": "c5b3ab2f-eff8-4f20-b330-49042b71abd9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "Signature",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"order\": {\n    \"amount\": \"<integer>\",\n    \"invoice_number\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"payment\": {\n    \"payment_due_date\": \"<integer>\"\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/checkout/v1/payment",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "checkout",
+                        "v1",
+                        "payment"
+                      ]
+                    },
+                    "description": "Creates a payment session and returns a hosted checkout page URL and token. Signed with the non-SNAP header scheme (Client-Id, Request-Id, Request-Timestamp, Signature = HMACSHA256=...)."
+                  },
+                  "response": [
+                    {
+                      "id": "a748a060-fc6f-41ae-9bb2-37efe62c9de6",
+                      "name": "Checkout page created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Signature",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"order\": {\n    \"amount\": \"<integer>\",\n    \"invoice_number\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"payment\": {\n    \"payment_due_date\": \"<integer>\"\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/checkout/v1/payment",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "checkout",
+                            "v1",
+                            "payment"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"response\": {\n    \"order\": {\n      \"amount\": \"<string>\",\n      \"invoice_number\": \"<string>\"\n    },\n    \"payment\": {\n      \"token_id\": \"<string>\",\n      \"url\": \"<string>\",\n      \"expired_date\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T01:32:14.000Z",
+                      "updatedAt": "2026-07-28T01:32:14.000Z",
+                      "uid": "35240-a748a060-fc6f-41ae-9bb2-37efe62c9de6"
+                    },
+                    {
+                      "id": "fb05dcea-4342-478a-9606-62af42f59026",
+                      "name": "Error response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Signature",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"order\": {\n    \"amount\": \"<integer>\",\n    \"invoice_number\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"payment\": {\n    \"payment_due_date\": \"<integer>\"\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/checkout/v1/payment",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "checkout",
+                            "v1",
+                            "payment"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:32:14.000Z",
+                      "updatedAt": "2026-07-28T01:32:14.000Z",
+                      "uid": "35240-fb05dcea-4342-478a-9606-62af42f59026"
+                    },
+                    {
+                      "id": "1e7debfa-77ff-4cfe-9377-e94b579135f7",
+                      "name": "Error response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Signature",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"order\": {\n    \"amount\": \"<integer>\",\n    \"invoice_number\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"payment\": {\n    \"payment_due_date\": \"<integer>\"\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/checkout/v1/payment",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "checkout",
+                            "v1",
+                            "payment"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:32:14.000Z",
+                      "updatedAt": "2026-07-28T01:32:14.000Z",
+                      "uid": "35240-1e7debfa-77ff-4cfe-9377-e94b579135f7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:32:14.000Z",
+                  "updatedAt": "2026-07-28T01:32:14.000Z",
+                  "uid": "35240-c5b3ab2f-eff8-4f20-b330-49042b71abd9"
+                }
+              ],
+              "id": "863d3b0d-4628-4269-8b59-247c633c93e4",
+              "createdAt": "2026-07-28T01:32:14.000Z",
+              "updatedAt": "2026-07-28T01:32:14.000Z",
+              "uid": "35240-863d3b0d-4628-4269-8b59-247c633c93e4"
+            }
+          ],
+          "id": "b0ce13a3-27c2-4a24-a32d-b6a2996ece3f",
+          "createdAt": "2026-07-28T01:32:14.000Z",
+          "updatedAt": "2026-07-28T01:32:14.000Z",
+          "uid": "35240-b0ce13a3-27c2-4a24-a32d-b6a2996ece3f"
+        }
+      ],
+      "id": "562c9bfa-c22e-45ce-9380-4647abce88df",
+      "createdAt": "2026-07-28T01:32:14.000Z",
+      "updatedAt": "2026-07-28T01:32:14.000Z",
+      "uid": "35240-562c9bfa-c22e-45ce-9380-4647abce88df"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.doku.com"
+    }
+  ]
+}

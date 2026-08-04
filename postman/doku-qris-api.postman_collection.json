@@ -1,0 +1,557 @@
+{
+  "info": {
+    "_postman_id": "49451a0f-2b62-4d7a-a68f-96a369eebf62",
+    "name": "DOKU Payment Access Token QRIS API",
+    "description": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:32:32.000Z",
+    "updatedAt": "2026-07-28T01:32:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-49451a0f-2b62-4d7a-a68f-96a369eebf62"
+  },
+  "item": [
+    {
+      "name": "snap-adapter",
+      "item": [
+        {
+          "name": "b2b",
+          "item": [
+            {
+              "name": "v1.0",
+              "item": [
+                {
+                  "name": "qr",
+                  "item": [
+                    {
+                      "name": "qr-mpm-generate",
+                      "item": [
+                        {
+                          "name": "Generate a QRIS Merchant-Presented Mode code",
+                          "id": "4395ffdf-15c6-4a3c-be33-bb5f5ae967c6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"partnerReferenceNo\": \"<string>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"merchantId\": \"<string>\",\n  \"validityPeriod\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-generate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "snap-adapter",
+                                "b2b",
+                                "v1.0",
+                                "qr",
+                                "qr-mpm-generate"
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "a4895dc6-ba7c-48b6-8644-3651abad1d62",
+                              "name": "QRIS content generated",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                    "key": "X-PARTNER-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) Unique per-request idempotency identifier.",
+                                    "key": "X-EXTERNAL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) ISO 8601 request timestamp.",
+                                    "key": "X-TIMESTAMP",
+                                    "value": "<dateTime>"
+                                  },
+                                  {
+                                    "description": "SNAP channel identifier (e.g. H2H).",
+                                    "key": "CHANNEL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"partnerReferenceNo\": \"<string>\",\n  \"amount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"merchantId\": \"<string>\",\n  \"validityPeriod\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-generate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "snap-adapter",
+                                    "b2b",
+                                    "v1.0",
+                                    "qr",
+                                    "qr-mpm-generate"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                              "createdAt": "2026-07-28T01:32:33.000Z",
+                              "updatedAt": "2026-07-28T01:32:33.000Z",
+                              "uid": "35240-a4895dc6-ba7c-48b6-8644-3651abad1d62"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:32:33.000Z",
+                          "updatedAt": "2026-07-28T01:32:33.000Z",
+                          "uid": "35240-4395ffdf-15c6-4a3c-be33-bb5f5ae967c6"
+                        }
+                      ],
+                      "id": "444e293f-b0b6-499c-908f-011d10524011",
+                      "createdAt": "2026-07-28T01:32:33.000Z",
+                      "updatedAt": "2026-07-28T01:32:33.000Z",
+                      "uid": "35240-444e293f-b0b6-499c-908f-011d10524011"
+                    },
+                    {
+                      "name": "qr-mpm-query",
+                      "item": [
+                        {
+                          "name": "Query a QRIS payment status",
+                          "id": "49798fdd-190a-44e7-a3eb-0de1623b08d1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"originalReferenceNo\": \"<string>\",\n  \"serviceCode\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-query",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "snap-adapter",
+                                "b2b",
+                                "v1.0",
+                                "qr",
+                                "qr-mpm-query"
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "a48e62b2-b080-4aad-9ca5-1c51e1c86b06",
+                              "name": "QRIS status",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                    "key": "X-PARTNER-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) Unique per-request idempotency identifier.",
+                                    "key": "X-EXTERNAL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) ISO 8601 request timestamp.",
+                                    "key": "X-TIMESTAMP",
+                                    "value": "<dateTime>"
+                                  },
+                                  {
+                                    "description": "SNAP channel identifier (e.g. H2H).",
+                                    "key": "CHANNEL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"originalReferenceNo\": \"<string>\",\n  \"serviceCode\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-query",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "snap-adapter",
+                                    "b2b",
+                                    "v1.0",
+                                    "qr",
+                                    "qr-mpm-query"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                              "createdAt": "2026-07-28T01:32:33.000Z",
+                              "updatedAt": "2026-07-28T01:32:33.000Z",
+                              "uid": "35240-a48e62b2-b080-4aad-9ca5-1c51e1c86b06"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:32:33.000Z",
+                          "updatedAt": "2026-07-28T01:32:33.000Z",
+                          "uid": "35240-49798fdd-190a-44e7-a3eb-0de1623b08d1"
+                        }
+                      ],
+                      "id": "7d5f8776-a5ed-4c5a-a179-11d86fb5e5a3",
+                      "createdAt": "2026-07-28T01:32:33.000Z",
+                      "updatedAt": "2026-07-28T01:32:33.000Z",
+                      "uid": "35240-7d5f8776-a5ed-4c5a-a179-11d86fb5e5a3"
+                    },
+                    {
+                      "name": "qr-mpm-refund",
+                      "item": [
+                        {
+                          "name": "Refund a QRIS payment",
+                          "id": "0d7b344b-855f-44da-9e4e-a5a99c0f7bec",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                "key": "X-PARTNER-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) Unique per-request idempotency identifier.",
+                                "key": "X-EXTERNAL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) ISO 8601 request timestamp.",
+                                "key": "X-TIMESTAMP",
+                                "value": "<dateTime>"
+                              },
+                              {
+                                "description": "SNAP channel identifier (e.g. H2H).",
+                                "key": "CHANNEL-ID",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"originalReferenceNo\": \"<string>\",\n  \"refundAmount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-refund",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "snap-adapter",
+                                "b2b",
+                                "v1.0",
+                                "qr",
+                                "qr-mpm-refund"
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "876cd9de-8835-495a-9ee7-3d34a57e67b3",
+                              "name": "QRIS refund result",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                                    "key": "X-PARTNER-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) Unique per-request idempotency identifier.",
+                                    "key": "X-EXTERNAL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "description": "(Required) ISO 8601 request timestamp.",
+                                    "key": "X-TIMESTAMP",
+                                    "value": "<dateTime>"
+                                  },
+                                  {
+                                    "description": "SNAP channel identifier (e.g. H2H).",
+                                    "key": "CHANNEL-ID",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"originalReferenceNo\": \"<string>\",\n  \"refundAmount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/snap-adapter/b2b/v1.0/qr/qr-mpm-refund",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "snap-adapter",
+                                    "b2b",
+                                    "v1.0",
+                                    "qr",
+                                    "qr-mpm-refund"
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"responseCode\": \"<string>\",\n  \"responseMessage\": \"<string>\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+                              "createdAt": "2026-07-28T01:32:33.000Z",
+                              "updatedAt": "2026-07-28T01:32:33.000Z",
+                              "uid": "35240-876cd9de-8835-495a-9ee7-3d34a57e67b3"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:32:33.000Z",
+                          "updatedAt": "2026-07-28T01:32:33.000Z",
+                          "uid": "35240-0d7b344b-855f-44da-9e4e-a5a99c0f7bec"
+                        }
+                      ],
+                      "id": "42991588-cfc0-4f25-a59c-0c7fd966b7a9",
+                      "createdAt": "2026-07-28T01:32:33.000Z",
+                      "updatedAt": "2026-07-28T01:32:33.000Z",
+                      "uid": "35240-42991588-cfc0-4f25-a59c-0c7fd966b7a9"
+                    }
+                  ],
+                  "id": "e320783d-ec24-442b-959a-f5f5daa4846d",
+                  "createdAt": "2026-07-28T01:32:33.000Z",
+                  "updatedAt": "2026-07-28T01:32:33.000Z",
+                  "uid": "35240-e320783d-ec24-442b-959a-f5f5daa4846d"
+                }
+              ],
+              "id": "521f820f-7e98-4f29-9fc0-cf3f71901ae9",
+              "createdAt": "2026-07-28T01:32:33.000Z",
+              "updatedAt": "2026-07-28T01:32:33.000Z",
+              "uid": "35240-521f820f-7e98-4f29-9fc0-cf3f71901ae9"
+            }
+          ],
+          "id": "45d8a73e-b3b9-48b9-a376-37bd0e8fbab6",
+          "createdAt": "2026-07-28T01:32:33.000Z",
+          "updatedAt": "2026-07-28T01:32:33.000Z",
+          "uid": "35240-45d8a73e-b3b9-48b9-a376-37bd0e8fbab6"
+        }
+      ],
+      "id": "ab2d115e-9ab8-43eb-9133-853c0867b667",
+      "createdAt": "2026-07-28T01:32:33.000Z",
+      "updatedAt": "2026-07-28T01:32:33.000Z",
+      "uid": "35240-ab2d115e-9ab8-43eb-9133-853c0867b667"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.doku.com"
+    }
+  ]
+}

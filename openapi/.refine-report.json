@@ -1,0 +1,24 @@
+{
+  "provider": "doku",
+  "sources": [
+    "doku-access-token-api-openapi.yml",
+    "doku-checkout-api-openapi.yml",
+    "doku-direct-debit-e-wallet-api-openapi.yml",
+    "doku-payout-api-openapi.yml",
+    "doku-qris-api-openapi.yml",
+    "doku-virtual-account-api-openapi.yml"
+  ],
+  "outputs": [
+    "doku-access-token-api-openapi.yml",
+    "doku-checkout-api-openapi.yml",
+    "doku-direct-debit-e-wallet-api-openapi.yml",
+    "doku-payout-api-openapi.yml",
+    "doku-qris-api-openapi.yml",
+    "doku-virtual-account-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
