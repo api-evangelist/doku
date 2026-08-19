@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DOKU Payment Access Token API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get SNAP B2B access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/authorization/v1/access-token/b2b",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SIGNATURE",
+              "value": "{{X-SIGNATURE}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mints a 15-minute Bearer access token. The X-SIGNATURE header is an asymmetric SHA256withRSA signature over \"clientId|X-TIMESTAMP\"."
+        },
+        {
+          "info": {
+            "name": "Get SNAP B2B2C access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/authorization/v1/access-token/b2b2c",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-SIGNATURE",
+              "value": "{{X-SIGNATURE}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Mints a customer-scoped B2B2C access token from an auth code."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

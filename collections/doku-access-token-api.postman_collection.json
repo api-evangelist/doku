@@ -1,0 +1,274 @@
+{
+  "item": [
+    {
+      "id": "cc4975f4-b77e-4566-8495-44f9c454e1b1",
+      "name": "Access Token",
+      "description": {
+        "content": "SNAP B2B / B2B2C access-token issuance.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8003dd58-b1fa-482d-8b61-39004399701b",
+          "name": "Get SNAP B2B access token",
+          "request": {
+            "name": "Get SNAP B2B access token",
+            "description": {
+              "content": "Mints a 15-minute Bearer access token. The X-SIGNATURE header is an asymmetric SHA256withRSA signature over \"clientId|X-TIMESTAMP\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authorization",
+                "v1",
+                "access-token",
+                "b2b"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SIGNATURE"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"grantType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "afb456ca-0b7c-4295-ab96-663b3d69b2c4",
+              "name": "Token issued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorization",
+                    "v1",
+                    "access-token",
+                    "b2b"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SIGNATURE",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grantType\": \"client_credentials\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"string\",\n  \"responseMessage\": \"string\",\n  \"accessToken\": \"string\",\n  \"tokenType\": \"Bearer\",\n  \"expiresIn\": \"900\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88ff87c2-d370-44b3-9de1-6adf0345f2ea",
+          "name": "Get SNAP B2B2C access token",
+          "request": {
+            "name": "Get SNAP B2B2C access token",
+            "description": {
+              "content": "Mints a customer-scoped B2B2C access token from an auth code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authorization",
+                "v1",
+                "access-token",
+                "b2b2c"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-SIGNATURE"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"grantType\": \"<string>\",\n  \"authCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6261df80-1cc4-44e6-9e82-82c42452727e",
+              "name": "Token issued",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorization",
+                    "v1",
+                    "access-token",
+                    "b2b2c"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-SIGNATURE",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grantType\": \"authorization_code\",\n  \"authCode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"string\",\n  \"responseMessage\": \"string\",\n  \"accessToken\": \"string\",\n  \"tokenType\": \"Bearer\",\n  \"expiresIn\": \"900\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.doku.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "998ea9aa-dadc-453a-8cb8-aec6344b38e4",
+    "name": "DOKU Payment Access Token API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

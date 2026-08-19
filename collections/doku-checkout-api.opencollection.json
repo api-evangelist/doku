@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DOKU Payment Access Token Checkout API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checkout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a DOKU-hosted checkout page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/checkout/v1/payment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Signature",
+              "value": "{{Signature}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a payment session and returns a hosted checkout page URL and token. Signed with the non-SNAP header scheme (Client-Id, Request-Id, Request-Timestamp, Signature = HMACSHA256=...)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

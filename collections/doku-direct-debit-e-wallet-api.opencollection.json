@@ -1,0 +1,203 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DOKU Payment Access Token Direct Debit & e-Wallet API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Direct Debit & e-Wallet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bind an e-wallet / direct-debit account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/direct-debit/core/v1/registration-account-binding",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Registers a binding between the merchant and a customer's e-wallet (OVO, DANA, ShopeePay) or bank direct-debit account."
+        },
+        {
+          "info": {
+            "name": "Inquire bound account balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/direct-debit/core/v1/balance-inquiry",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Inquire bound account balance"
+        },
+        {
+          "info": {
+            "name": "Charge a bound e-wallet / direct-debit account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/direct-debit/core/v1/debit/payment-host-to-host",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Host-to-host debit against a bound OVO / DANA / ShopeePay / direct-debit account. Amount is in IDR."
+        },
+        {
+          "info": {
+            "name": "Refund a direct-debit / e-wallet payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/direct-debit/core/v1/debit/refund",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Refund a direct-debit / e-wallet payment"
+        },
+        {
+          "info": {
+            "name": "Unbind an e-wallet / direct-debit account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/direct-debit/core/v1/registration-account-unbinding",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Unbind an e-wallet / direct-debit account"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,7 +1,8 @@
 generated: '2026-07-17'
 method: searched
 status: published
-source: https://docs.doku.com/accept-payments/integration-tools/doku-mcp-server + github.com/PTNUSASATUINTIARTHA-DOKU/doku-mcp-proxy (index.js)
+source: https://docs.doku.com/accept-payments/integration-tools/doku-mcp-server + github.com/PTNUSASATUINTIARTHA-DOKU/doku-mcp-proxy
+  (index.js)
 server:
   name: DOKU MCP Server
   transport: http
@@ -9,38 +10,40 @@ server:
   url: https://api.doku.com/doku-mcp-server/mcp
   sandbox_url: https://api-sandbox.doku.com/doku-mcp-server/mcp
   docs: https://docs.doku.com/accept-payments/integration-tools/doku-mcp-server
-  description: >-
-    DOKU's official hosted Model Context Protocol server. It exposes DOKU's
-    payment operations as MCP tools so AI agents can create payments on demand
-    (checkout links, Virtual Account numbers, QRIS codes) and run post-payment
-    workflows such as checking transaction status. Tools are discovered at
-    runtime via tools/list; the schema constrains parameters, types, and error
-    responses so an agent can call the API predictably.
+  description: DOKU's official hosted Model Context Protocol server. It exposes DOKU's payment operations
+    as MCP tools so AI agents can create payments on demand (checkout links, Virtual Account numbers,
+    QRIS codes) and run post-payment workflows such as checking transaction status. Tools are discovered
+    at runtime via tools/list; the schema constrains parameters, types, and error responses so an agent
+    can call the API predictably.
 clients:
-  - name: doku-mcp-local (proxy)
-    kind: stdio-proxy
-    package: doku-mcp-local
-    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-mcp-proxy
-    note: >-
-      Local stdio bridge that connects an MCP client (e.g. Claude Desktop) to
-      the hosted DOKU MCP Server over streamable HTTP. Fetches the live tool
-      list from the server (stateless tools/list) and proxies tools/call.
-  - name: n8n-nodes-doku-mcp-client
-    kind: n8n-node
-    repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/n8n-nodes-doku-mcp-client
-    note: Official n8n community nodes for the DOKU MCP Client.
+- name: doku-mcp-local (proxy)
+  kind: stdio-proxy
+  package: doku-mcp-local
+  repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/doku-mcp-proxy
+  note: Local stdio bridge that connects an MCP client (e.g. Claude Desktop) to the hosted DOKU MCP Server
+    over streamable HTTP. Fetches the live tool list from the server (stateless tools/list) and proxies
+    tools/call.
+- name: n8n-nodes-doku-mcp-client
+  kind: n8n-node
+  repo: https://github.com/PTNUSASATUINTIARTHA-DOKU/n8n-nodes-doku-mcp-client
+  note: Official n8n community nodes for the DOKU MCP Client.
 capabilities:
-  # DOKU documents two payment experiences the MCP server can drive. The live
-  # tool list is fetched dynamically from the server (tools/list); these are the
-  # documented capability families, not a fabricated fixed tool schema.
-  - family: checkout-payment
-    description: Generate a DOKU-hosted checkout page / payment link showing all methods enabled for the merchant.
-  - family: direct-payment
-    description: Create a payment instruction for one method (QRIS, Virtual Account, e-Wallet, PayLater).
-  - family: transaction-status
-    description: Check the status of a transaction / handle post-payment workflows.
-notes: >-
-  DOKU also ships agent-native codegen surfaces alongside MCP: doku-codegen
-  (official Claude Code / Cursor plugins with packaged Agent Skills) and the
-  MCP client integrations above. Tool schemas are served by the remote server;
-  no tool list is fabricated here.
+- family: checkout-payment
+  description: Generate a DOKU-hosted checkout page / payment link showing all methods enabled for the
+    merchant.
+- family: direct-payment
+  description: Create a payment instruction for one method (QRIS, Virtual Account, e-Wallet, PayLater).
+- family: transaction-status
+  description: Check the status of a transaction / handle post-payment workflows.
+notes: 'DOKU also ships agent-native codegen surfaces alongside MCP: doku-codegen (official Claude Code
+  / Cursor plugins with packaged Agent Skills) and the MCP client integrations above. Tool schemas are
+  served by the remote server; no tool list is fabricated here.'
+deployment:
+  mode: none
+  endpoint: https://api.doku.com/doku-mcp-server/mcp
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census

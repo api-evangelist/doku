@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DOKU Payment Access Token QRIS API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "QRIS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a QRIS Merchant-Presented Mode code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/snap-adapter/b2b/v1.0/qr/qr-mpm-generate",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a QRIS Merchant-Presented Mode code"
+        },
+        {
+          "info": {
+            "name": "Query a QRIS payment status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/snap-adapter/b2b/v1.0/qr/qr-mpm-query",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Query a QRIS payment status"
+        },
+        {
+          "info": {
+            "name": "Refund a QRIS payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/snap-adapter/b2b/v1.0/qr/qr-mpm-refund",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              },
+              {
+                "name": "CHANNEL-ID",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Refund a QRIS payment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

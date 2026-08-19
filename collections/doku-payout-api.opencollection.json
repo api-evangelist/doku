@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DOKU Payment Access Token Payout API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Inquire disbursement source balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/payout/kirim-doku/balance-inquiry",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Inquire disbursement source balance"
+        },
+        {
+          "info": {
+            "name": "Validate a recipient bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/payout/kirim-doku/account-inquiry",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validate a recipient bank account"
+        },
+        {
+          "info": {
+            "name": "Disburse funds to a recipient bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/payout/kirim-doku/transfer-bank",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disburse funds to a recipient bank account"
+        },
+        {
+          "info": {
+            "name": "Check a disbursement transaction status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.doku.com/payout/kirim-doku/check-status",
+            "headers": [
+              {
+                "name": "X-PARTNER-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EXTERNAL-ID",
+                "value": ""
+              },
+              {
+                "name": "X-TIMESTAMP",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check a disbursement transaction status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

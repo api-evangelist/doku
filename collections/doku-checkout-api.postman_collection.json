@@ -1,0 +1,257 @@
+{
+  "item": [
+    {
+      "id": "706cc24d-5faf-4120-9ef3-2d11d49f7c90",
+      "name": "Checkout",
+      "description": {
+        "content": "DOKU-hosted checkout page (non-SNAP).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "57aca4a8-466e-4e38-9063-b97ac5b28701",
+          "name": "Generate a DOKU-hosted checkout page",
+          "request": {
+            "name": "Generate a DOKU-hosted checkout page",
+            "description": {
+              "content": "Creates a payment session and returns a hosted checkout page URL and token. Signed with the non-SNAP header scheme (Client-Id, Request-Id, Request-Timestamp, Signature = HMACSHA256=...).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout",
+                "v1",
+                "payment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Signature"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order\": {\n    \"amount\": \"<integer>\",\n    \"invoice_number\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"payment\": {\n    \"payment_due_date\": \"<integer>\"\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c97aff2-cb34-4091-81a9-d7f2c740f969",
+              "name": "Checkout page created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    "v1",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Signature",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 50000,\n    \"invoice_number\": \"INV-20260717-001\",\n    \"currency\": \"IDR\"\n  },\n  \"payment\": {\n    \"payment_due_date\": 60\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": [\n    \"string\",\n    \"string\"\n  ],\n  \"response\": {\n    \"order\": {\n      \"amount\": \"string\",\n      \"invoice_number\": \"string\"\n    },\n    \"payment\": {\n      \"token_id\": \"string\",\n      \"url\": \"string\",\n      \"expired_date\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92522362-8136-4b98-8b38-cee18ec23f90",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    "v1",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Signature",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 50000,\n    \"invoice_number\": \"INV-20260717-001\",\n    \"currency\": \"IDR\"\n  },\n  \"payment\": {\n    \"payment_due_date\": 60\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"string\",\n  \"responseMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e19197f-bf10-4450-a6e0-b9e7a5cb824e",
+              "name": "Error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    "v1",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Signature",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 50000,\n    \"invoice_number\": \"INV-20260717-001\",\n    \"currency\": \"IDR\"\n  },\n  \"payment\": {\n    \"payment_due_date\": 60\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"string\",\n  \"responseMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.doku.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a383d4be-4a68-41b9-ab3c-3772e02e06c9",
+    "name": "DOKU Payment Access Token Checkout API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

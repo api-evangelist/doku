@@ -1,0 +1,672 @@
+{
+  "item": [
+    {
+      "id": "42dea766-9bc5-44e8-b4d9-8d3b58439bc5",
+      "name": "Virtual Account",
+      "description": {
+        "content": "SNAP BI-SNAP Virtual Account lifecycle.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10238aef-775c-4ac3-b0fc-d67abe2eb3ee",
+          "name": "Create a SNAP virtual account",
+          "request": {
+            "name": "Create a SNAP virtual account",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-accounts",
+                "bi-snap-va",
+                "v1.1",
+                "transfer-va",
+                "create-va"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                "key": "X-PARTNER-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Unique per-request idempotency identifier.",
+                "key": "X-EXTERNAL-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) ISO 8601 request timestamp.",
+                "key": "X-TIMESTAMP",
+                "value": "<dateTime>"
+              },
+              {
+                "disabled": false,
+                "description": "SNAP channel identifier (e.g. H2H).",
+                "key": "CHANNEL-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"virtualAccountName\": \"<string>\",\n  \"trxId\": \"<string>\",\n  \"totalAmount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"virtualAccountConfig\": {\n    \"reusableStatus\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99d82844-beee-4a2a-be6a-170a968bcddb",
+              "name": "Virtual account created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-accounts",
+                    "bi-snap-va",
+                    "v1.1",
+                    "transfer-va",
+                    "create-va"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                    "key": "X-PARTNER-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Unique per-request idempotency identifier.",
+                    "key": "X-EXTERNAL-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ISO 8601 request timestamp.",
+                    "key": "X-TIMESTAMP",
+                    "value": "<dateTime>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "SNAP channel identifier (e.g. H2H).",
+                    "key": "CHANNEL-ID",
+                    "value": "H2H"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"virtualAccountName\": \"<string>\",\n  \"trxId\": \"<string>\",\n  \"totalAmount\": {\n    \"value\": \"50000.00\",\n    \"currency\": \"IDR\"\n  },\n  \"virtualAccountConfig\": {\n    \"reusableStatus\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"2002700\",\n  \"responseMessage\": \"Successful\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c249ccd4-16b8-4c65-98a9-38fec61ba5e9",
+          "name": "Update a SNAP virtual account",
+          "request": {
+            "name": "Update a SNAP virtual account",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-accounts",
+                "bi-snap-va",
+                "v1.1",
+                "transfer-va",
+                "update-va"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                "key": "X-PARTNER-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Unique per-request idempotency identifier.",
+                "key": "X-EXTERNAL-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) ISO 8601 request timestamp.",
+                "key": "X-TIMESTAMP",
+                "value": "<dateTime>"
+              },
+              {
+                "disabled": false,
+                "description": "SNAP channel identifier (e.g. H2H).",
+                "key": "CHANNEL-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"virtualAccountName\": \"<string>\",\n  \"trxId\": \"<string>\",\n  \"totalAmount\": {\n    \"value\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"virtualAccountConfig\": {\n    \"reusableStatus\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4d9b38b-a4c8-4831-9631-95ff4a8cfc64",
+              "name": "Virtual account updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-accounts",
+                    "bi-snap-va",
+                    "v1.1",
+                    "transfer-va",
+                    "update-va"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                    "key": "X-PARTNER-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Unique per-request idempotency identifier.",
+                    "key": "X-EXTERNAL-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ISO 8601 request timestamp.",
+                    "key": "X-TIMESTAMP",
+                    "value": "<dateTime>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "SNAP channel identifier (e.g. H2H).",
+                    "key": "CHANNEL-ID",
+                    "value": "H2H"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"virtualAccountName\": \"<string>\",\n  \"trxId\": \"<string>\",\n  \"totalAmount\": {\n    \"value\": \"50000.00\",\n    \"currency\": \"IDR\"\n  },\n  \"virtualAccountConfig\": {\n    \"reusableStatus\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"2002700\",\n  \"responseMessage\": \"Successful\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ec67184-9c0c-4fe1-a892-fa0fde970782",
+          "name": "Delete a SNAP virtual account",
+          "request": {
+            "name": "Delete a SNAP virtual account",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-accounts",
+                "bi-snap-va",
+                "v1.1",
+                "transfer-va",
+                "delete-va"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                "key": "X-PARTNER-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Unique per-request idempotency identifier.",
+                "key": "X-EXTERNAL-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) ISO 8601 request timestamp.",
+                "key": "X-TIMESTAMP",
+                "value": "<dateTime>"
+              },
+              {
+                "disabled": false,
+                "description": "SNAP channel identifier (e.g. H2H).",
+                "key": "CHANNEL-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"trxId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eb548760-4b35-4126-a788-e2791728d7f1",
+              "name": "Virtual account deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-accounts",
+                    "bi-snap-va",
+                    "v1.1",
+                    "transfer-va",
+                    "delete-va"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                    "key": "X-PARTNER-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Unique per-request idempotency identifier.",
+                    "key": "X-EXTERNAL-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ISO 8601 request timestamp.",
+                    "key": "X-TIMESTAMP",
+                    "value": "<dateTime>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "SNAP channel identifier (e.g. H2H).",
+                    "key": "CHANNEL-ID",
+                    "value": "H2H"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"trxId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"2002700\",\n  \"responseMessage\": \"Successful\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19e83824-5e44-41e9-bce8-9c5fd4c524c4",
+          "name": "Inquire SNAP virtual account payment status",
+          "request": {
+            "name": "Inquire SNAP virtual account payment status",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-accounts",
+                "bi-snap-va",
+                "v1.1",
+                "transfer-va",
+                "inquiry"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Merchant partner identifier issued by DOKU.",
+                "key": "X-PARTNER-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Unique per-request idempotency identifier.",
+                "key": "X-EXTERNAL-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) ISO 8601 request timestamp.",
+                "key": "X-TIMESTAMP",
+                "value": "<dateTime>"
+              },
+              {
+                "disabled": false,
+                "description": "SNAP channel identifier (e.g. H2H).",
+                "key": "CHANNEL-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"inquiryRequestId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c7f183c3-3177-44f2-b5b8-1d98659c6d65",
+              "name": "Inquiry result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-accounts",
+                    "bi-snap-va",
+                    "v1.1",
+                    "transfer-va",
+                    "inquiry"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Merchant partner identifier issued by DOKU.",
+                    "key": "X-PARTNER-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Unique per-request idempotency identifier.",
+                    "key": "X-EXTERNAL-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ISO 8601 request timestamp.",
+                    "key": "X-TIMESTAMP",
+                    "value": "<dateTime>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "SNAP channel identifier (e.g. H2H).",
+                    "key": "CHANNEL-ID",
+                    "value": "H2H"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"partnerServiceId\": \"<string>\",\n  \"customerNo\": \"<string>\",\n  \"virtualAccountNo\": \"<string>\",\n  \"inquiryRequestId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"responseCode\": \"2002700\",\n  \"responseMessage\": \"Successful\",\n  \"virtualAccountData\": {},\n  \"additionalInfo\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.doku.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2ccfa3b0-a1b5-49a7-8b08-7d0c187baf79",
+    "name": "DOKU Payment Access Token Virtual Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.\n\nContact Support:\n Name: DOKU Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
