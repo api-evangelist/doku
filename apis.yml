@@ -8,6 +8,18 @@ description: DOKU (PT Nusa Satu Inti Artha) is Indonesia's pioneering payment
   suite of Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for
   Virtual Account, e-Wallet, Direct Debit, QRIS, and Kirim (payout/disbursement),
   all settling in Indonesian Rupiah (IDR).
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
