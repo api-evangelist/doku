@@ -43,6 +43,18 @@ tags:
 - Indonesia
 - SEA
 - SNAP
+- Virtual Accounts
+- E-Wallet
+- QRIS
+- Direct Debit
+- Payouts
+tags_raw:
+- Payments
+- Payment Gateway
+- Fintech
+- Indonesia
+- SEA
+- SNAP
 - Virtual Account
 - E-Wallet
 - QRIS
@@ -208,6 +220,8 @@ apis:
   humanURL: https://developers.doku.com/accept-payments/doku-checkout
   baseURL: https://api.doku.com
   tags:
+  - Virtual Accounts
+  tags_raw:
   - Virtual Account
   properties:
   - type: OpenAPI
