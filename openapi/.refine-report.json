@@ -1,12 +1,7 @@
 {
   "provider": "doku",
   "sources": [
-    "doku-access-token-api-openapi.yml",
-    "doku-checkout-api-openapi.yml",
-    "doku-direct-debit-e-wallet-api-openapi.yml",
-    "doku-payout-api-openapi.yml",
-    "doku-qris-api-openapi.yml",
-    "doku-virtual-account-api-openapi.yml"
+    "_original/doku-openapi.yml"
   ],
   "outputs": [
     "doku-access-token-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "doku-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "doku-access-token-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "doku-checkout-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "doku-direct-debit-e-wallet-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "doku-payout-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "doku-qris-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "doku-virtual-account-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: DOKU Payment Access Token QRIS API
+  title: DOKU Payment QRIS API
   description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
   version: '1.0'
   contact:
@@ -108,7 +108,61 @@ paths:
               schema:
                 $ref: '#/components/schemas/SnapResponse'
 components:
+  schemas:
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type:
+          - object
+          - 'null'
+        additionalInfo:
+          type:
+          - object
+          - 'null'
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
+    QrisGenerateRequest:
+      type: object
+      properties:
+        partnerReferenceNo:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        merchantId:
+          type: string
+        validityPeriod:
+          type: string
   parameters:
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
     XPartnerId:
       name: X-PARTNER-ID
       in: header
@@ -124,58 +178,6 @@ components:
         type: string
         format: date-time
       description: ISO 8601 request timestamp.
-    XExternalId:
-      name: X-EXTERNAL-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Unique per-request idempotency identifier.
-    ChannelId:
-      name: CHANNEL-ID
-      in: header
-      required: false
-      schema:
-        type: string
-        example: H2H
-      description: SNAP channel identifier (e.g. H2H).
-  schemas:
-    QrisGenerateRequest:
-      type: object
-      properties:
-        partnerReferenceNo:
-          type: string
-        amount:
-          $ref: '#/components/schemas/Amount'
-        merchantId:
-          type: string
-        validityPeriod:
-          type: string
-    Amount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: Amount as a decimal string, e.g. "50000.00".
-          example: '50000.00'
-        currency:
-          type: string
-          example: IDR
-    SnapResponse:
-      type: object
-      properties:
-        responseCode:
-          type: string
-          example: '2002700'
-        responseMessage:
-          type: string
-          example: Successful
-        virtualAccountData:
-          type: object
-          nullable: true
-        additionalInfo:
-          type: object
-          nullable: true
   securitySchemes:
     CheckoutSignature:
       type: apiKey

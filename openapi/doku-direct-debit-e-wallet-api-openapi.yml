@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: DOKU Payment Access Token Direct Debit & e-Wallet API
+  title: DOKU Payment Direct Debit & e-Wallet API
   description: DOKU (PT Nusa Satu Inti Artha) payment APIs for Indonesia. Includes the non-SNAP hosted Checkout API and Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet / Direct Debit, QRIS, and Kirim payout. Checkout uses Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers; SNAP uses an asymmetric SHA256withRSA access token followed by HMAC-SHA512 transaction signatures.
   version: '1.0'
   contact:
@@ -167,48 +167,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/SnapResponse'
 components:
-  parameters:
-    XPartnerId:
-      name: X-PARTNER-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Merchant partner identifier issued by DOKU.
-    XTimestamp:
-      name: X-TIMESTAMP
-      in: header
-      required: true
-      schema:
-        type: string
-        format: date-time
-      description: ISO 8601 request timestamp.
-    XExternalId:
-      name: X-EXTERNAL-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Unique per-request idempotency identifier.
-    ChannelId:
-      name: CHANNEL-ID
-      in: header
-      required: false
-      schema:
-        type: string
-        example: H2H
-      description: SNAP channel identifier (e.g. H2H).
   schemas:
-    Amount:
+    SnapResponse:
       type: object
       properties:
-        value:
+        responseCode:
           type: string
-          description: Amount as a decimal string, e.g. "50000.00".
-          example: '50000.00'
-        currency:
+          example: '2002700'
+        responseMessage:
           type: string
-          example: IDR
+          example: Successful
+        virtualAccountData:
+          type:
+          - object
+          - 'null'
+        additionalInfo:
+          type:
+          - object
+          - 'null'
     AccountBindingRequest:
       type: object
       properties:
@@ -235,21 +211,47 @@ components:
             channel:
               type: string
               example: EMONEY_OVO_SNAP
-    SnapResponse:
+    Amount:
       type: object
       properties:
-        responseCode:
+        value:
           type: string
-          example: '2002700'
-        responseMessage:
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
           type: string
-          example: Successful
-        virtualAccountData:
-          type: object
-          nullable: true
-        additionalInfo:
-          type: object
-          nullable: true
+          example: IDR
+  parameters:
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
   securitySchemes:
     CheckoutSignature:
       type: apiKey
