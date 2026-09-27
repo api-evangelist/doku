@@ -36,6 +36,9 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/doku.png
+x-docs-platform: gitbook
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-25
 tags:
 - Payments
 - Payment Gateway
@@ -44,7 +47,7 @@ tags:
 - SEA
 - SNAP
 - Virtual Accounts
-- E-Wallet
+- Digital Wallet
 - QRIS
 - Direct Debit
 - Payouts

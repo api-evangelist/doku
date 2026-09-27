@@ -143,24 +143,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/SnapResponse'
 components:
+  parameters:
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
   schemas:
-    SnapResponse:
+    Amount:
       type: object
       properties:
-        responseCode:
+        value:
           type: string
-          example: '2002700'
-        responseMessage:
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
           type: string
-          example: Successful
-        virtualAccountData:
-          type:
-          - object
-          - 'null'
-        additionalInfo:
-          type:
-          - object
-          - 'null'
+          example: IDR
     CreateVaRequest:
       type: object
       properties:
@@ -181,47 +205,23 @@ components:
           properties:
             reusableStatus:
               type: boolean
-    Amount:
+    SnapResponse:
       type: object
       properties:
-        value:
+        responseCode:
           type: string
-          description: Amount as a decimal string, e.g. "50000.00".
-          example: '50000.00'
-        currency:
+          example: '2002700'
+        responseMessage:
           type: string
-          example: IDR
-  parameters:
-    ChannelId:
-      name: CHANNEL-ID
-      in: header
-      required: false
-      schema:
-        type: string
-        example: H2H
-      description: SNAP channel identifier (e.g. H2H).
-    XExternalId:
-      name: X-EXTERNAL-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Unique per-request idempotency identifier.
-    XPartnerId:
-      name: X-PARTNER-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Merchant partner identifier issued by DOKU.
-    XTimestamp:
-      name: X-TIMESTAMP
-      in: header
-      required: true
-      schema:
-        type: string
-        format: date-time
-      description: ISO 8601 request timestamp.
+          example: Successful
+        virtualAccountData:
+          type:
+          - object
+          - 'null'
+        additionalInfo:
+          type:
+          - object
+          - 'null'
   securitySchemes:
     CheckoutSignature:
       type: apiKey
