@@ -108,6 +108,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/SnapResponse'
 components:
+  parameters:
+    XTimestamp:
+      name: X-TIMESTAMP
+      in: header
+      required: true
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 request timestamp.
+    XPartnerId:
+      name: X-PARTNER-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Merchant partner identifier issued by DOKU.
+    XExternalId:
+      name: X-EXTERNAL-ID
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Unique per-request idempotency identifier.
+    ChannelId:
+      name: CHANNEL-ID
+      in: header
+      required: false
+      schema:
+        type: string
+        example: H2H
+      description: SNAP channel identifier (e.g. H2H).
   schemas:
     Amount:
       type: object
@@ -147,37 +178,6 @@ components:
           type:
           - object
           - 'null'
-  parameters:
-    ChannelId:
-      name: CHANNEL-ID
-      in: header
-      required: false
-      schema:
-        type: string
-        example: H2H
-      description: SNAP channel identifier (e.g. H2H).
-    XPartnerId:
-      name: X-PARTNER-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Merchant partner identifier issued by DOKU.
-    XExternalId:
-      name: X-EXTERNAL-ID
-      in: header
-      required: true
-      schema:
-        type: string
-      description: Unique per-request idempotency identifier.
-    XTimestamp:
-      name: X-TIMESTAMP
-      in: header
-      required: true
-      schema:
-        type: string
-        format: date-time
-      description: ISO 8601 request timestamp.
   securitySchemes:
     CheckoutSignature:
       type: apiKey

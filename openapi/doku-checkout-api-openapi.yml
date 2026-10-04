@@ -44,6 +44,33 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
+    CheckoutPaymentResponse:
+      type: object
+      properties:
+        message:
+          type: array
+          items:
+            type: string
+        response:
+          type: object
+          properties:
+            order:
+              type: object
+              properties:
+                amount:
+                  type: string
+                invoice_number:
+                  type: string
+            payment:
+              type: object
+              properties:
+                token_id:
+                  type: string
+                url:
+                  type: string
+                  description: DOKU-hosted checkout page URL.
+                expired_date:
+                  type: string
     CheckoutPaymentRequest:
       type: object
       properties:
@@ -73,33 +100,6 @@ components:
               type: string
             email:
               type: string
-    CheckoutPaymentResponse:
-      type: object
-      properties:
-        message:
-          type: array
-          items:
-            type: string
-        response:
-          type: object
-          properties:
-            order:
-              type: object
-              properties:
-                amount:
-                  type: string
-                invoice_number:
-                  type: string
-            payment:
-              type: object
-              properties:
-                token_id:
-                  type: string
-                url:
-                  type: string
-                  description: DOKU-hosted checkout page URL.
-                expired_date:
-                  type: string
   responses:
     Error:
       description: Error response
