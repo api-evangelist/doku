@@ -167,6 +167,60 @@ paths:
               schema:
                 $ref: '#/components/schemas/SnapResponse'
 components:
+  schemas:
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type:
+          - object
+          - 'null'
+        additionalInfo:
+          type:
+          - object
+          - 'null'
+    AccountBindingRequest:
+      type: object
+      properties:
+        phoneNo:
+          type: string
+        redirectUrl:
+          type: string
+        additionalInfo:
+          type: object
+          properties:
+            channel:
+              type: string
+              example: DIRECT_DEBIT_OVO_SNAP
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
+    DebitPaymentRequest:
+      type: object
+      properties:
+        partnerReferenceNo:
+          type: string
+        amount:
+          $ref: '#/components/schemas/Amount'
+        additionalInfo:
+          type: object
+          properties:
+            channel:
+              type: string
+              example: EMONEY_OVO_SNAP
   parameters:
     XTimestamp:
       name: X-TIMESTAMP
@@ -198,60 +252,6 @@ components:
         type: string
         example: H2H
       description: SNAP channel identifier (e.g. H2H).
-  schemas:
-    Amount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: Amount as a decimal string, e.g. "50000.00".
-          example: '50000.00'
-        currency:
-          type: string
-          example: IDR
-    DebitPaymentRequest:
-      type: object
-      properties:
-        partnerReferenceNo:
-          type: string
-        amount:
-          $ref: '#/components/schemas/Amount'
-        additionalInfo:
-          type: object
-          properties:
-            channel:
-              type: string
-              example: EMONEY_OVO_SNAP
-    SnapResponse:
-      type: object
-      properties:
-        responseCode:
-          type: string
-          example: '2002700'
-        responseMessage:
-          type: string
-          example: Successful
-        virtualAccountData:
-          type:
-          - object
-          - 'null'
-        additionalInfo:
-          type:
-          - object
-          - 'null'
-    AccountBindingRequest:
-      type: object
-      properties:
-        phoneNo:
-          type: string
-        redirectUrl:
-          type: string
-        additionalInfo:
-          type: object
-          properties:
-            channel:
-              type: string
-              example: DIRECT_DEBIT_OVO_SNAP
   securitySchemes:
     CheckoutSignature:
       type: apiKey

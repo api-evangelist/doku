@@ -143,6 +143,54 @@ paths:
               schema:
                 $ref: '#/components/schemas/SnapResponse'
 components:
+  schemas:
+    SnapResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+          example: '2002700'
+        responseMessage:
+          type: string
+          example: Successful
+        virtualAccountData:
+          type:
+          - object
+          - 'null'
+        additionalInfo:
+          type:
+          - object
+          - 'null'
+    CreateVaRequest:
+      type: object
+      properties:
+        partnerServiceId:
+          type: string
+        customerNo:
+          type: string
+        virtualAccountNo:
+          type: string
+        virtualAccountName:
+          type: string
+        trxId:
+          type: string
+        totalAmount:
+          $ref: '#/components/schemas/Amount'
+        virtualAccountConfig:
+          type: object
+          properties:
+            reusableStatus:
+              type: boolean
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Amount as a decimal string, e.g. "50000.00".
+          example: '50000.00'
+        currency:
+          type: string
+          example: IDR
   parameters:
     XTimestamp:
       name: X-TIMESTAMP
@@ -174,54 +222,6 @@ components:
         type: string
         example: H2H
       description: SNAP channel identifier (e.g. H2H).
-  schemas:
-    Amount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: Amount as a decimal string, e.g. "50000.00".
-          example: '50000.00'
-        currency:
-          type: string
-          example: IDR
-    CreateVaRequest:
-      type: object
-      properties:
-        partnerServiceId:
-          type: string
-        customerNo:
-          type: string
-        virtualAccountNo:
-          type: string
-        virtualAccountName:
-          type: string
-        trxId:
-          type: string
-        totalAmount:
-          $ref: '#/components/schemas/Amount'
-        virtualAccountConfig:
-          type: object
-          properties:
-            reusableStatus:
-              type: boolean
-    SnapResponse:
-      type: object
-      properties:
-        responseCode:
-          type: string
-          example: '2002700'
-        responseMessage:
-          type: string
-          example: Successful
-        virtualAccountData:
-          type:
-          - object
-          - 'null'
-        additionalInfo:
-          type:
-          - object
-          - 'null'
   securitySchemes:
     CheckoutSignature:
       type: apiKey

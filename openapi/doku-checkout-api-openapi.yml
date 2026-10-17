@@ -43,6 +43,18 @@ paths:
         '401':
           $ref: '#/components/responses/Error'
 components:
+  responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              responseCode:
+                type: string
+              responseMessage:
+                type: string
   schemas:
     CheckoutPaymentResponse:
       type: object
@@ -100,18 +112,6 @@ components:
               type: string
             email:
               type: string
-  responses:
-    Error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              responseCode:
-                type: string
-              responseMessage:
-                type: string
   securitySchemes:
     CheckoutSignature:
       type: apiKey
