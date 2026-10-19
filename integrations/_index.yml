@@ -30,3 +30,123 @@
     builder: provider (package published from the provider's own domain)
   status: not-a-workflow
   arazzo: null
+- slug: doku-bank-indonesia-payment-system-licence-register
+  label: Bank Indonesia payment-system licence register
+  partner_name: Bank Indonesia payment-system licence register
+  category: open finance / payments (Indonesia)
+  type: register
+  channel: regulator-register
+  evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Bank Indonesia payment-system licence register
+    spec_file: null
+    standard: Bank Indonesia payment-system licensing (PBI 22/23/2020; SNAP applies to licensees)
+    role: licensed-participant
+    registrations:
+    - registered_name: PT Nusa Satu Inti Artha
+      licences:
+      - Payment Service Provider - License Category I
+      matched_domain: doku.com
+      matched_by: domain+verified
+      evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+      product: Penyelenggara Dompet Elektronik
+      decision: DE0380
+    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
+    detected_by: sweep-gulf-asean-open-finance.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: doku-go-module-proxy
+  label: Go module proxy
+  partner_name: Go module proxy
+  category: official SDK (Go)
+  type: register
+  channel: package-registry
+  evidence: https://pkg.go.dev/github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+      version: v1.1.9
+      released: '2026-01-15'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/PTNUSASATUINTIARTHA-DOKU/doku-golang-library
+      repo_leg: github-org:ptnusasatuintiartha-doku
+      publisher_leg: org:ptnusasatuintiartha-doku
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: doku-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/doku-nodejs-library
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: doku-nodejs-library
+      version: 1.0.52
+      released: '2025-07-17'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/doku-nodejs-library
+      repo_leg: github-org:ptnusasatuintiartha-doku
+      publisher_leg: email:doku.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: doku-pypi
+  label: PyPI
+  partner: pypi
+  partner_name: PyPI
+  category: official SDK (Python)
+  type: register
+  channel: package-registry
+  evidence: https://pypi.org/project/doku-python-library/
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: doku-python-library
+      version: 1.1.72
+      released: '2025-07-18'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/doku-python-library/
+      repo_leg: github-org:ptnusasatuintiartha-doku
+      publisher_leg: email:doku.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
