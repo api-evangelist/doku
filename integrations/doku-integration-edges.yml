@@ -27,34 +27,6 @@ edges:
     builder: provider (package published from the provider's own domain)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
-- partner_name: Bank Indonesia payment-system licence register
-  partner: null
-  partner_match: register
-  type: register
-  channel: regulator-register
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
-  category: open finance / payments (Indonesia)
-  contract_reference:
-    register: Bank Indonesia payment-system licence register
-    spec_file: null
-    standard: Bank Indonesia payment-system licensing (PBI 22/23/2020; SNAP applies to licensees)
-    role: licensed-participant
-    registrations:
-    - registered_name: PT Nusa Satu Inti Artha
-      licences:
-      - Payment Service Provider - License Category I
-      matched_domain: doku.com
-      matched_by: domain+verified
-      evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
-      product: Penyelenggara Dompet Elektronik
-      decision: DE0380
-    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
-    detected_by: sweep-gulf-asean-open-finance.py
-    detected: '2026-10-18'
-  detected_by: sweep-gulf-asean-open-finance.py
-  first_seen: '2026-10-18'
 - partner_name: Go module proxy
   partner: null
   partner_match: null
@@ -145,6 +117,49 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: Bank Indonesia payment-system licence register
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+  category: open finance / payments (Indonesia)
+  contract_reference:
+    register: Bank Indonesia payment-system licence register
+    spec_file: null
+    standard: Bank Indonesia payment-system licensing (PBI 22/23/2020; SNAP applies to licensees)
+    role: licensed-participant
+    registrations:
+    - registered_name: PT Nusa Satu Inti Artha
+      licences:
+      - Payment Service Provider - License Category I
+      matched_domain: doku.com
+      matched_by: domain+verified
+      evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+      product: Penyelenggara Dompet Elektronik
+      decision: DE0380
+    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
+    detected_by: sweep-gulf-asean-open-finance.py
+    detected: '2026-10-18'
+  detected_by: sweep-gulf-asean-open-finance.py
+  first_seen: '2026-10-18'
+- partner_name: n8n (n8n-community)
+  partner: n8n
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: n8n-community
+  evidence: https://www.npmjs.com/package/n8n-nodes-doku-mcp-client
+  mirror_of: n8n/integrations/n8n-integration-edges.yml
+  apps: []
+  listing_count: 1
+  detected: '2026-10-19'
+  detected_by: mirror-platform-listings.py
 method: searched
 checked:
 - https://api.nuget.org/v3
@@ -159,5 +174,6 @@ checked:
 - https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
 - https://www.bnm.gov.my/list-of-regulatees
 - https://www.ojk.go.id/id/kanal/iknb/data-dan-statistik/direktori/fintech/Default.aspx
+- n8n/integrations/n8n-integration-edges.yml
 source:
 - https://registry.npmjs.org/-/v1/search?text=keywords:n8n-community-node-package
