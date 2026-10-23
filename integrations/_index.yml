@@ -30,34 +30,6 @@
     builder: provider (package published from the provider's own domain)
   status: not-a-workflow
   arazzo: null
-- slug: doku-bank-indonesia-payment-system-licence-register
-  label: Bank Indonesia payment-system licence register
-  partner_name: Bank Indonesia payment-system licence register
-  category: open finance / payments (Indonesia)
-  type: register
-  channel: regulator-register
-  evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: Bank Indonesia payment-system licence register
-    spec_file: null
-    standard: Bank Indonesia payment-system licensing (PBI 22/23/2020; SNAP applies to licensees)
-    role: licensed-participant
-    registrations:
-    - registered_name: PT Nusa Satu Inti Artha
-      licences:
-      - Payment Service Provider - License Category I
-      matched_domain: doku.com
-      matched_by: domain+verified
-      evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
-      product: Penyelenggara Dompet Elektronik
-      decision: DE0380
-    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
-    detected_by: sweep-gulf-asean-open-finance.py
-    detected: '2026-10-18'
-  status: not-a-workflow
-  arazzo: null
 - slug: doku-go-module-proxy
   label: Go module proxy
   partner_name: Go module proxy
@@ -148,5 +120,76 @@
       24 months'
     detected_by: sweep-official-sdks.py
     detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: doku-bank-indonesia-payment-system-licence-register
+  label: Bank Indonesia payment-system licence register
+  partner_name: Bank Indonesia payment-system licence register
+  category: open finance / payments (Indonesia)
+  type: register
+  channel: regulator-register
+  evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Bank Indonesia payment-system licence register
+    spec_file: null
+    standard: Bank Indonesia payment-system licensing (PBI 22/23/2020; SNAP applies to licensees)
+    role: licensed-participant
+    registrations:
+    - registered_name: PT Nusa Satu Inti Artha
+      licences:
+      - Payment Service Provider - License Category I
+      matched_domain: doku.com
+      matched_by: domain+verified
+      evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+      product: Penyelenggara Dompet Elektronik
+      decision: DE0380
+    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
+    detected_by: sweep-gulf-asean-open-finance.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: doku-n8n-n8n-community
+  label: n8n (n8n-community)
+  partner: n8n
+  partner_name: n8n (n8n-community)
+  type: marketplace
+  marketplace: n8n-community
+  channel: partner-built
+  evidence: https://www.npmjs.com/package/n8n-nodes-doku-mcp-client
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: doku-packagist
+  label: Packagist
+  partner: packagist
+  partner_name: Packagist
+  category: official SDK (PHP)
+  type: register
+  channel: package-registry
+  evidence: https://packagist.org/packages/doku/doku-php-library
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Packagist (public registry JSON)
+    spec_file: null
+    language: PHP
+    packages:
+    - name: doku/doku-php-library
+      version: 1.0.17
+      released: '2025-07-17'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/doku/doku-php-library
+      repo_leg: github-org:ptnusasatuintiartha-doku
+      publisher_leg: email:doku.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null
