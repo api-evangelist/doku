@@ -1,4 +1,4 @@
-# DOKU (doku)
+# DOKU
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,164 +66,161 @@
 
 DOKU (PT Nusa Satu Inti Artha) is Indonesia's pioneering payment gateway, founded in 2007 and licensed by Bank Indonesia as a Category 1 Payment Service Provider. Its developer platform exposes a hosted Checkout API plus a full suite of Bank Indonesia SNAP (Standar Nasional Open API Pembayaran) endpoints for Virtual Account, e-Wallet, Direct Debit, QRIS, and Kirim (payout/disbursement), all settling in Indonesian Rupiah (IDR).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/doku/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/doku/refs/heads/main/apis.yml)
+**Areas:** Payments · Payment Gateway · Fintech · Indonesia · SEA · SNAP · Virtual Accounts · Digital Wallet · QRIS · Direct Debit · Payouts
 
-## Tags
+## DOKU on APIs.io
 
-- Payments
-- Payment Gateway
-- Fintech
-- Indonesia
-- SEA
-- SNAP
-- Virtual Account
-- E-Wallet
-- QRIS
-- Direct Debit
-- Payouts
+Everything profiled for DOKU is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/doku/](https://apis.io/providers/doku/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-07-17
-- **Modified:** 2026-07-17
+- [DOKU Access Token API](https://apis.io/apis/doku/doku-access-token-api/) — SNAP B2B / B2B2C access-token issuance.
+- [DOKU Checkout API](https://apis.io/apis/doku/doku-checkout-api/) — DOKU-hosted checkout page (non-SNAP).
+- [DOKU Direct Debit & e-Wallet API](https://apis.io/apis/doku/doku-direct-debit-e-wallet-api/) — SNAP account binding and host-to-host debit for e-wallets and bank direct debit.
+- [DOKU Payout API](https://apis.io/apis/doku/doku-payout-api/) — Kirim DOKU disbursement to bank accounts.
+- [DOKU QRIS API](https://apis.io/apis/doku/doku-qris-api/) — SNAP QRIS Merchant-Presented Mode.
+- [DOKU Virtual Account API](https://apis.io/apis/doku/doku-virtual-account-api/) — SNAP BI-SNAP Virtual Account lifecycle.
 
-## APIs
+### Published properties
 
-### DOKU Checkout API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-DOKU's hosted checkout page. A single `POST /checkout/v1/payment` call returns a redirect URL and token for a DOKU-hosted payment page that accepts cards, virtual accounts, e-wallets, and QRIS. Uses non-SNAP Client-Id + Request-Id + Request-Timestamp + HMAC-SHA256 Signature headers.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://developers.doku.com/accept-payments/doku-checkout](https://developers.doku.com/accept-payments/doku-checkout)
-- **Base URL:** `https://api.doku.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Doku Webhooks](https://apis.io/asyncapis/doku/doku-webhooks/)
 
-- Checkout
-- Hosted Payment Page
-- Payments
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://developers.doku.com/accept-payments/doku-checkout)
-- [API Reference](https://developers.doku.com/accept-payments/doku-checkout/integration-guide/backend-integration)
-- [OpenAPI](openapi/doku-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/doku.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [DOKU MCP Server](https://apis.io/servers/doku/doku-mcp-server/)
 
-### DOKU SNAP Access Token API
+#### Agentic access (1)
 
-Bank Indonesia SNAP B2B and B2B2C access-token endpoints. Merchants sign an asymmetric SHA256withRSA request with X-CLIENT-KEY + X-TIMESTAMP to mint a 15-minute Bearer token used across all SNAP transaction APIs.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b)
-- **Base URL:** `https://api.doku.com`
+- [Doku Agentic Access](https://apis.io/agentic-access/doku/doku-agentic-access/)
 
-#### Tags
+#### Collections (12)
 
-- Authentication
-- OAuth
-- SNAP
+Postman and Open Collection request collections.
 
-#### Properties
+- [DOKU Payment Access Token API](https://apis.io/collections/doku/open-doku-access-token-api/)
+- [DOKU Payment Access Token Checkout API](https://apis.io/collections/doku/open-doku-checkout-api/)
+- [DOKU Payment Access Token Direct Debit & e-Wallet API](https://apis.io/collections/doku/open-doku-direct-debit-e-wallet-api/)
+- [DOKU Payment Access Token Payout API](https://apis.io/collections/doku/open-doku-payout-api/)
+- [DOKU Payment Access Token QRIS API](https://apis.io/collections/doku/open-doku-qris-api/)
+- [DOKU Payment Access Token Virtual Account API](https://apis.io/collections/doku/open-doku-virtual-account-api/)
+- [DOKU Payment Access Token API](https://apis.io/collections/doku/postman-doku-access-token-api/)
+- [DOKU Payment Access Token Checkout API](https://apis.io/collections/doku/postman-doku-checkout-api/)
+- [DOKU Payment Access Token Direct Debit & e-Wallet API](https://apis.io/collections/doku/postman-doku-direct-debit-e-wallet-api/)
+- [DOKU Payment Access Token Payout API](https://apis.io/collections/doku/postman-doku-payout-api/)
+- [DOKU Payment Access Token QRIS API](https://apis.io/collections/doku/postman-doku-qris-api/)
+- [DOKU Payment Access Token Virtual Account API](https://apis.io/collections/doku/postman-doku-virtual-account-api/)
 
-- [Documentation](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/get-token-api/b2b)
-- [OpenAPI](openapi/doku-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/doku.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+#### Overlays (1)
 
-### DOKU SNAP Virtual Account API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-SNAP BI-SNAP Virtual Account create/update/delete/inquiry across BCA, BRI, BNI, Mandiri, Permata, BTN, Danamon and other banks. HMAC-SHA512 signed transactions under `/virtual-accounts/bi-snap-va/v1.1/transfer-va`.
+- [Doku Overlay](https://apis.io/overlays/doku/doku-overlay/)
 
-- **Human URL:** [https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account)
-- **Base URL:** `https://api.doku.com`
+#### Security (4)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Virtual Account
-- Bank Transfer
-- SNAP
+- [Doku Authentication](https://apis.io/security/doku/doku-authentication/)
+- [Doku Domain Security](https://apis.io/security/doku/doku-domain-security/)
+- [Doku Trust Center](https://apis.io/security/doku/doku-trust-center/)
+- [Doku Vulnerability Disclosure](https://apis.io/security/doku/doku-vulnerability-disclosure/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/virtual-account/bca-virtual-account)
-- [OpenAPI](openapi/doku-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/doku.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+Published plans, tiers and prices.
 
-### DOKU SNAP Direct Debit & e-Wallet API
+- [Doku Plans Pricing](https://apis.io/plans/doku/doku-plans-pricing/)
 
-SNAP account-binding, host-to-host debit, refund, and unbinding for Indonesian e-wallets (OVO, DANA, ShopeePay, DOKU Wallet) and bank direct debit, under `/direct-debit/core/v1`.
+#### Rate limits (1)
 
-- **Human URL:** [https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/e-wallet/ovo](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/e-wallet/ovo)
-- **Base URL:** `https://api.doku.com`
+Published request limits.
 
-#### Tags
+- [Doku Rate Limits](https://apis.io/rate-limits/doku/doku-rate-limits/)
 
-- E-Wallet
-- Direct Debit
-- OVO
-- DANA
-- ShopeePay
-- SNAP
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/e-wallet/ovo)
-- [OpenAPI](openapi/doku-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/doku.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Doku Finops](https://apis.io/finops/doku/doku-finops/)
 
-### DOKU SNAP QRIS API
+## Where to find this API
 
-SNAP QRIS Merchant-Presented Mode (MPM) generate, query, decode, refund, and expire, plus B2B2C QR payment, under `/snap-adapter/b2b/v1.0/qr`. QRIS is Bank Indonesia's unified national QR payment standard.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/qris](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/qris)
-- **Base URL:** `https://api.doku.com`
-
-#### Tags
-
-- QRIS
-- QR Code
-- SNAP
-
-#### Properties
-
-- [Documentation](https://developers.doku.com/accept-payments/direct-api/snap/integration-guide/qris)
-- [OpenAPI](openapi/doku-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/doku.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### DOKU Kirim Payout API
-
-Kirim DOKU domestic disbursement — balance inquiry, bank-account inquiry, bank transfer, and transaction status — for paying out to recipient bank accounts. Authenticated with the SNAP B2B Bearer token.
-
-- **Human URL:** [https://developers.doku.com/payout/kirim-doku](https://developers.doku.com/payout/kirim-doku)
-- **Base URL:** `https://api.doku.com`
-
-#### Tags
-
-- Payout
-- Disbursement
-- Remittance
-- SNAP
-
-#### Properties
-
-- [Documentation](https://developers.doku.com/payout/kirim-doku)
-- [OpenAPI](openapi/doku-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/doku.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/PTNUSASATUINTIARTHA-DOKU)
 - [Website](https://www.doku.com/)
 - [Documentation](https://developers.doku.com/)
-- [Plans](plans/doku-plans-pricing.yml)
-- [Rate Limits](rate-limits/doku-rate-limits.yml)
-- [Fin Ops](finops/doku-finops.yml)
-- [Authentication](authentication/doku-authentication.yml)
-- [Domain Security](security/doku-domain-security.yml)
-- [Trust Center](security/doku-trust-center.yml)
-- [Vulnerability Disclosure](security/doku-vulnerability-disclosure.yml)
-- [Agentic Access](agentic-access/doku-agentic-access.yml)
+- [Getting started](https://developers.doku.com/get-started-with-doku-api/user-registration)
+- [Pricing](https://www.doku.com/en-us/pricing)
+- [Sign up](https://dashboard.doku.com/bo/registration)
+- [Support](https://help.doku.com/en/support/home)
 - [Blog](https://www.doku.com/en-us/blog)
+- [Compliance](https://docs.doku.com/security/licenses)
+- [Terms of service](https://dashboard.doku.com/doku-agreement/terms-and-conditions)
+- [Privacy policy](https://dashboard.doku.com/doku-agreement/privacy-policy)
+- [GitHub](https://github.com/PTNUSASATUINTIARTHA-DOKU)
+- [Status](https://status.doku.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 58.5** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 53.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 74.4 |
+| Access clarity | 68.4 |
+
+**Agent readiness 32.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 32.1** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/doku/](https://apis.io/providers/doku/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DOKU: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/doku/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
